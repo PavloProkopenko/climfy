@@ -1,8 +1,10 @@
 import { defineConfig, type PluginOption } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsConfigPaths from 'vite-tsconfig-paths'
+import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 
-const plugins = [react(), tsConfigPaths()]
+const plugins = [react(), tsConfigPaths(), tailwindcss()]
 
 const createPluginArray = (plugins: PluginOption[]) => {
   return plugins as PluginOption[]
@@ -12,8 +14,8 @@ export default defineConfig({
   plugins: createPluginArray(plugins),
   resolve: {
     alias: {
-      '@app': new URL('./src', import.meta.url).pathname,
-      '@assets': new URL('./src/assets', import.meta.url).pathname,
+      '@app': path.resolve(__dirname, 'src'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
     },
   },
   server: {
