@@ -1,7 +1,23 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type PluginOption } from 'vite'
 import react from '@vitejs/plugin-react'
+import tsConfigPaths from 'vite-tsconfig-paths'
 
-// https://vite.dev/config/
+const plugins = [react(), tsConfigPaths()]
+
+const createPluginArray = (plugins: PluginOption[]) => {
+  return plugins as PluginOption[]
+}
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: createPluginArray(plugins),
+  resolve: {
+    alias: {
+      '@app': new URL('./src', import.meta.url).pathname,
+      '@assets': new URL('./src/assets', import.meta.url).pathname,
+    },
+  },
+  server: {
+    port: 3000,
+    open: true,
+  },
 })
