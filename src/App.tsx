@@ -1,8 +1,12 @@
-import '@app/App.css'
-import { Button } from '@/components/ui/button'
+import { Outlet } from 'react-router'
+import Layout from './shared/layout/layout'
 
 function App() {
-  return <Button>Click me</Button>
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  )
 }
 
 export default App

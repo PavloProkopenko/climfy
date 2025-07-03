@@ -15,11 +15,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@app': path.resolve(__dirname, 'src'),
-      '@assets': path.resolve(__dirname, 'src/assets'),
     },
   },
   server: {
-    port: Number(process.env.PORT) || 3000,
+    port: Number(process.env.REACT_APP_PORT) || 3000,
     open: true,
   },
 })
