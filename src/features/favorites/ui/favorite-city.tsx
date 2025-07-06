@@ -6,6 +6,7 @@ import { X, Loader2 } from 'lucide-react'
 import { Button } from '@/shared/components/ui/button'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 import { toast } from 'sonner'
+import { WeatherTestId } from 'tests/resources/enums'
 
 interface FavoriteCityTabletProps {
   id: string
@@ -91,7 +92,12 @@ export function FavoriteCities() {
 
   return (
     <>
-      <h1 className="text-xl font-bold tracking-tight">Favorites</h1>
+      <h1
+        className="text-xl font-bold tracking-tight"
+        data-testid={WeatherTestId.FavoritesHeading}
+      >
+        Favorites
+      </h1>
       <ScrollArea className="w-full pb-4">
         <div className="flex gap-4">
           {favorites.map((city) => (

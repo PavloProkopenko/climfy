@@ -11,6 +11,7 @@ import { WeatherDetails } from '@/features/weather/ui/weather-details'
 import { WeatherForecast } from '@/features/weather/ui/weather-forecast'
 import WeatherSkeleton from '@/shared/layout/ui/loading-skeleton'
 import { FavoriteButton } from '@/features/favorites/ui/favorite-button'
+import { WeatherTestId } from 'tests/resources/enums'
 
 export function CityPage() {
   const [searchParams] = useSearchParams()
@@ -41,7 +42,10 @@ export function CityPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1
+          className="text-3xl font-bold tracking-tight"
+          data-testid={WeatherTestId.FindedLocation}
+        >
           {params.cityName}, {weatherQuery.data.sys.country}
         </h1>
         <div className="flex gap-2">

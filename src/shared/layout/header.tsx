@@ -3,6 +3,7 @@ import { RoutePath } from '../resources/enums'
 import { useTheme } from '../context/theme-provider'
 import { ThemeToggle } from '@/shared/layout/ui/theme-toggle'
 import { CitySearch } from '@/features/search/ui/city-search'
+import { WeatherTestId } from 'tests/resources/enums'
 
 const Header = () => {
   const { theme } = useTheme()
@@ -11,7 +12,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-2">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link to={RoutePath.Root}>
+        <Link to={RoutePath.Root} data-testid={WeatherTestId.HomeButton}>
           <img
             src={isDark ? '/logo-dark.svg' : '/logo-light.svg'}
             alt="Climfy logo"

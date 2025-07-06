@@ -7,6 +7,7 @@ import {
 import { Sunrise, Sunset, Compass, Gauge } from 'lucide-react'
 import { format } from 'date-fns'
 import type { WeatherData } from '@/features/weather/api/types'
+import { WeatherTestId } from 'tests/resources/enums'
 
 interface WeatherDetailsProps {
   data: WeatherData
@@ -56,7 +57,7 @@ export function WeatherDetails({ data }: WeatherDetailsProps) {
   ]
 
   return (
-    <Card>
+    <Card data-testid={WeatherTestId.WeatherDetailsContainer}>
       <CardHeader>
         <CardTitle>Weather Details</CardTitle>
       </CardHeader>

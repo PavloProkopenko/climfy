@@ -4,6 +4,7 @@ import { Button } from '@/shared/components/ui/button'
 import type { WeatherData } from '@/features/weather/api/types'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 import { toast } from 'sonner'
+import { WeatherTestId } from 'tests/resources/enums'
 
 interface FavoriteButtonProps {
   data: WeatherData
@@ -34,6 +35,7 @@ export function FavoriteButton({ data }: FavoriteButtonProps) {
       size="icon"
       onClick={handleToggleFavorite}
       className={isCurrentlyFavorite ? 'bg-yellow-500 hover:bg-yellow-600' : ''}
+      data-testid={WeatherTestId.FavoriteButton}
     >
       <Star
         className={`h-4 w-4 ${isCurrentlyFavorite ? 'fill-current' : ''}`}

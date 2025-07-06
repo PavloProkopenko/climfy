@@ -19,6 +19,7 @@ import {
 } from '@/shared/components/ui/command'
 import { Button } from '@/shared/components/ui/button'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
+import { WeatherTestId } from 'tests/resources/enums'
 
 export function CitySearch() {
   const [open, setOpen] = useState(false)
@@ -51,6 +52,7 @@ export function CitySearch() {
         variant="outline"
         className="relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
         onClick={() => setOpen(true)}
+        data-testid={WeatherTestId.SearchBar}
       >
         <Search className="mr-2 h-4 w-4" />
         Search cities...
@@ -61,8 +63,9 @@ export function CitySearch() {
             placeholder="Search cities..."
             value={query}
             onValueChange={setQuery}
+            data-testid={WeatherTestId.SearchBarInput}
           />
-          <CommandList>
+          <CommandList data-testid={WeatherTestId.SearchBarResultList}>
             {query.length > 2 && !isLoading && (
               <CommandEmpty>No cities found.</CommandEmpty>
             )}
@@ -75,6 +78,7 @@ export function CitySearch() {
                     key={city.id}
                     value={`${city.lat}|${city.lon}|${city.name}|${city.country}`}
                     onSelect={handleSelect}
+                    data-testid={WeatherTestId.FavoriteItem}
                   >
                     <Star className="mr-2 h-4 w-4 text-yellow-500" />
                     <span>{city.name}</span>

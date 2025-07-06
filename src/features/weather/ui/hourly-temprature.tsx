@@ -14,6 +14,7 @@ import {
 } from 'recharts'
 import { format } from 'date-fns'
 import type { ForecastData } from '@/features/weather/api/types'
+import { WeatherTestId } from 'tests/resources/enums'
 
 interface HourlyTemperatureProps {
   data: ForecastData
@@ -37,7 +38,10 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
     }))
 
   return (
-    <Card className="flex-1">
+    <Card
+      className="flex-1"
+      data-testid={WeatherTestId.HourlyTemperatureContainer}
+    >
       <CardHeader>
         <CardTitle>Today's Temperature</CardTitle>
       </CardHeader>
