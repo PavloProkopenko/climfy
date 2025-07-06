@@ -4,6 +4,7 @@ import type {
   WeatherData,
   GeocodingResponse,
 } from '@/features/weather/api/types'
+import { WeatherTestId } from 'tests/resources/enums'
 
 interface CurrentWeatherProps {
   data: WeatherData
@@ -21,7 +22,10 @@ export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
   const formatTemp = (temp: number) => `${Math.round(temp)}°`
 
   return (
-    <Card className="overflow-hidden">
+    <Card
+      className="overflow-hidden"
+      data-testid={WeatherTestId.CurrentWeatherContainer}
+    >
       <CardContent className="p-6">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-4">

@@ -7,6 +7,7 @@ import {
 import { ArrowDown, ArrowUp, Droplets, Wind } from 'lucide-react'
 import { format } from 'date-fns'
 import type { ForecastData } from '@/features/weather/api/types'
+import { WeatherTestId } from 'tests/resources/enums'
 
 interface WeatherForecastProps {
   data: ForecastData
@@ -64,7 +65,7 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
   const formatTemp = (temp: number) => `${Math.round(temp)}°`
 
   return (
-    <Card>
+    <Card data-testid={WeatherTestId.WearherForecastContainer}>
       <CardHeader>
         <CardTitle>5-Day Forecast</CardTitle>
       </CardHeader>
