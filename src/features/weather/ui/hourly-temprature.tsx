@@ -1,4 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/shared/components/ui/card'
 import {
   LineChart,
   Line,
@@ -8,7 +13,7 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { format } from 'date-fns'
-import type { ForecastData } from '@/api/types'
+import type { ForecastData } from '@/features/weather/api/types'
 
 interface HourlyTemperatureProps {
   data: ForecastData

@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 import { RoutePath } from '../resources/enums'
 import { useTheme } from '../context/theme-provider'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { CitySearch } from '@/components/city-search'
+import { ThemeToggle } from '@/shared/layout/ui/theme-toggle'
+import { CitySearch } from '@/features/search/ui/city-search'
 
 const Header = () => {
   const { theme } = useTheme()

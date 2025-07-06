@@ -1,6 +1,6 @@
 // src/hooks/use-favorites.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useLocalStorage } from './use-local-storage'
+import { useLocalStorage } from '../../../shared/hooks/use-local-storage'
 
 export interface FavoriteCity {
   id: string

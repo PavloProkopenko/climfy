@@ -1,17 +1,21 @@
-import WeatherSkeleton from '@/components/loading-skeleton'
-import { Button } from '@/components/ui/button'
-import { useGeolocation } from '@/shared/hooks/use-geolocation'
+import WeatherSkeleton from '@/shared/layout/ui/loading-skeleton'
+import { Button } from '@/shared/components/ui/button'
+import { useGeolocation } from '@/features/weather/hooks/use-geolocation'
 import { AlertTriangle, MapPin, RefreshCw } from 'lucide-react'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/shared/components/ui/alert'
 import {
   useForecastQuery,
   useReverseGeocodeQuery,
   useWeatherQuery,
-} from '@/shared/hooks/use-weather'
-import { CurrentWeather } from '@/components/current-weather'
-import { HourlyTemperature } from '@/components/hourly-temprature'
-import { WeatherDetails } from '@/components/weather-details'
-import { WeatherForecast } from '@/components/weather-forecast'
+} from '@/features/weather/hooks/use-weather'
+import { CurrentWeather } from '@/features/weather/ui/current-weather'
+import { HourlyTemperature } from '@/features/weather/ui/hourly-temprature'
+import { WeatherDetails } from '@/features/weather/ui/weather-details'
+import { WeatherForecast } from '@/features/weather/ui/weather-forecast'
 
 const WeatherDashboard = () => {
   const {

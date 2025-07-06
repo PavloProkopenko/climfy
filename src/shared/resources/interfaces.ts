@@ -1,4 +1,4 @@
-import { type Coordinates } from '@/api/types'
+import { type Coordinates } from '@/features/weather/api/types'
 
 export interface GeolocationState {
   coordinates: Coordinates | null

@@ -2,8 +2,11 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { format } from 'date-fns'
 import { Search, Loader2, Clock, Star, XCircle } from 'lucide-react'
-import { useLocationSearch } from '@/shared/hooks/use-weather'
-import { useSearchHistory } from '@/shared/hooks/use-search-history'
+import { useLocationSearch } from '@/features/weather/hooks/use-weather'
+import {
+  useSearchHistory,
+  type SearchHistoryItem,
+} from '@/features/search/hooks/use-search-history'
 import {
   Command,
   CommandDialog,
@@ -13,9 +16,9 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command'
-import { Button } from '@/components/ui/button'
-import { useFavorites } from '@/shared/hooks/use-favorite'
+} from '@/shared/components/ui/command'
+import { Button } from '@/shared/components/ui/button'
+import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 
 export function CitySearch() {
   const [open, setOpen] = useState(false)
@@ -106,7 +109,7 @@ export function CitySearch() {
                       Clear
                     </Button>
                   </div>
-                  {history.map((item) => (
+                  {history.map((item: SearchHistoryItem) => (
                     <CommandItem
                       key={item.id}
                       value={`${item.lat}|${item.lon}|${item.name}|${item.country}`}
