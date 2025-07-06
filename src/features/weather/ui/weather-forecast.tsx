@@ -8,6 +8,7 @@ import { ArrowDown, ArrowUp, Droplets, Wind } from 'lucide-react'
 import { format } from 'date-fns'
 import type { ForecastData } from '@/features/weather/api/types'
 import { WeatherTestId } from 'tests/resources/enums'
+import { useTranslation } from 'react-i18next'
 
 interface WeatherForecastProps {
   data: ForecastData
@@ -28,6 +29,8 @@ interface DailyForecast {
 }
 
 export function WeatherForecast({ data }: WeatherForecastProps) {
+  const { t } = useTranslation()
+
   // Group forecast by day and get daily min/max
   const dailyForecasts = data.list.reduce(
     (acc, forecast) => {
@@ -64,10 +67,12 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
   // Format temperature
   const formatTemp = (temp: number) => `${Math.round(temp)}°`
 
+  console.log(dailyForecasts)
+
   return (
     <Card data-testid={WeatherTestId.WearherForecastContainer}>
       <CardHeader>
-        <CardTitle>5-Day Forecast</CardTitle>
+        <CardTitle>{t('weather.forecast')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">

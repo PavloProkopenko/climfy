@@ -7,6 +7,7 @@ import { Button } from '@/shared/components/ui/button'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 import { toast } from 'sonner'
 import { WeatherTestId } from 'tests/resources/enums'
+import { useTranslation } from 'react-i18next'
 
 interface FavoriteCityTabletProps {
   id: string
@@ -25,6 +26,7 @@ function FavoriteCityTablet({
 }: FavoriteCityTabletProps) {
   const navigate = useNavigate()
   const { data: weather, isLoading } = useWeatherQuery({ lat, lon })
+  const { t } = useTranslation()
 
   const handleClick = () => {
     navigate(`/city/${name}?lat=${lat}&lon=${lon}`)
@@ -44,7 +46,7 @@ function FavoriteCityTablet({
         onClick={(e) => {
           e.stopPropagation()
           onRemove(id)
-          toast.error(`Removed ${name} from Favorites`)
+          toast.error(t('favorites.remove', { city: name }))
         }}
       >
         <X className="h-4 w-4" />

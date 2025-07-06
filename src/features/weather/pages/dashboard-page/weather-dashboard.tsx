@@ -17,8 +17,10 @@ import { HourlyTemperature } from '@/features/weather/ui/hourly-temprature'
 import { WeatherDetails } from '@/features/weather/ui/weather-details'
 import { WeatherForecast } from '@/features/weather/ui/weather-forecast'
 import { FavoriteCities } from '@/features/favorites/ui/favorite-city'
+import { useTranslation } from 'react-i18next'
 
 const WeatherDashboard = () => {
+  const { t } = useTranslation()
   const {
     coordinates,
     error: locationError,
@@ -47,12 +49,12 @@ const WeatherDashboard = () => {
     return (
       <Alert variant="destructive">
         <AlertTriangle className="h-4 w-4" />
-        <AlertTitle>Location Error</AlertTitle>
+        <AlertTitle>{t('location.error')}</AlertTitle>
         <AlertDescription className="flex flex-col gap-4">
           <p>{locationError}</p>
           <Button variant="outline" onClick={getLocation} className="w-fit">
             <MapPin className="mr-2 h-4 w-4" />
-            Enable Location
+            {t('location.enable')}
           </Button>
         </AlertDescription>
       </Alert>
@@ -63,12 +65,12 @@ const WeatherDashboard = () => {
     return (
       <Alert variant="destructive">
         <AlertTriangle className="h-4 w-4" />
-        <AlertTitle>Location Required</AlertTitle>
+        <AlertTitle>{t('location.required')}</AlertTitle>
         <AlertDescription className="flex flex-col gap-4">
           <p>{locationError}</p>
           <Button variant="outline" onClick={getLocation} className="w-fit">
             <MapPin className="mr-2 h-4 w-4" />
-            Enable Location
+            {t('location.enable')}
           </Button>
         </AlertDescription>
       </Alert>
@@ -80,12 +82,12 @@ const WeatherDashboard = () => {
   if (weatherQuery.error || forecastQuery.error) {
     ;<Alert variant="destructive">
       <AlertTriangle className="h-4 w-4" />
-      <AlertTitle>Error</AlertTitle>
+      <AlertTitle>{t('errors.general')}</AlertTitle>
       <AlertDescription className="flex flex-col gap-4">
         <p>{locationError}</p>
         <Button variant="outline" onClick={getLocation} className="w-fit">
           <MapPin className="mr-2 h-4 w-4" />
-          Enable Location
+          {t('location.enable')}
         </Button>
       </AlertDescription>
     </Alert>
@@ -99,7 +101,7 @@ const WeatherDashboard = () => {
     <div className="space-y-4">
       <FavoriteCities />
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight">My Location</h1>
+        <h1 className="text-xl font-bold tracking-tight">{t('location.my')}</h1>
         <Button
           variant="outline"
           size="icon"

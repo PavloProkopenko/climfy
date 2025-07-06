@@ -1,7 +1,9 @@
 import type { PropsWithChildren } from 'react'
 import Header from '@/shared/layout/header'
+import { useTranslation } from 'react-i18next'
 
 const Layout = ({ children }: PropsWithChildren) => {
+  const { t } = useTranslation()
   return (
     <div className="bg-gradient-to-br from-background to-muted">
       <Header />
@@ -10,7 +12,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       </main>
       <footer className="border-t backdrop-blur py-12 supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 text-center text-gray-400">
-          <p>Made with ❤️ by Pavlo Prokopenko</p>
+          <p>{t('footer.madeBy')}</p>
         </div>
       </footer>
     </div>

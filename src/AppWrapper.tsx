@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import '@/shared/locales/i18n'
 import { RouterProvider } from 'react-router'
 import { routes } from './shared/resources/routes'
 import { ThemeProvider } from './shared/context/theme-provider'

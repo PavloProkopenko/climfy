@@ -5,6 +5,7 @@ import type {
   GeocodingResponse,
 } from '@/features/weather/api/types'
 import { WeatherTestId } from 'tests/resources/enums'
+import { useTranslation } from 'react-i18next'
 
 interface CurrentWeatherProps {
   data: WeatherData
@@ -12,6 +13,7 @@ interface CurrentWeatherProps {
 }
 
 export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
+  const { t } = useTranslation()
   const {
     weather: [currentWeather],
     main: { temp, feels_like, temp_min, temp_max, humidity },
@@ -51,7 +53,8 @@ export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
               </p>
               <div className="space-y-1 pl-2">
                 <p className="text-sm font-medium text-muted-foreground">
-                  Feels like {formatTemp(feels_like)}
+                  {t('weather.feelsLike') || 'Feels like'}{' '}
+                  {formatTemp(feels_like)}
                 </p>
                 <div className="flex gap-2 text-sm font-medium">
                   <span className="flex items-center gap-1 text-green-300">
@@ -70,14 +73,16 @@ export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
               <div className="flex items-center gap-2">
                 <Droplets className="h-4 w-4 text-green-300" />
                 <div className="space-y-0.5">
-                  <p className="text-sm font-medium">Humidity</p>
+                  <p className="text-sm font-medium">{t('weather.humidity')}</p>
                   <p className="text-sm text-muted-foreground">{humidity}%</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Wind className="h-4 w-4 text-green-300" />
                 <div className="space-y-0.5">
-                  <p className="text-sm font-medium">Wind Speed</p>
+                  <p className="text-sm font-medium">
+                    {t('weather.windSpeed') || 'Wind Speed'}
+                  </p>
                   <p className="text-sm text-muted-foreground">{speed} m/s</p>
                 </div>
               </div>

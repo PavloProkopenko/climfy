@@ -20,11 +20,13 @@ import {
 import { Button } from '@/shared/components/ui/button'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 import { WeatherTestId } from 'tests/resources/enums'
+import { useTranslation } from 'react-i18next'
 
 export function CitySearch() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const { data: locations, isLoading } = useLocationSearch(query)
   const { favorites } = useFavorites()
@@ -55,24 +57,24 @@ export function CitySearch() {
         data-testid={WeatherTestId.SearchBar}
       >
         <Search className="mr-2 h-4 w-4" />
-        Search cities...
+        {t('search.placeholder')}
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <Command>
           <CommandInput
-            placeholder="Search cities..."
+            placeholder={t('search.placeholder')}
             value={query}
             onValueChange={setQuery}
             data-testid={WeatherTestId.SearchBarInput}
           />
           <CommandList data-testid={WeatherTestId.SearchBarResultList}>
             {query.length > 2 && !isLoading && (
-              <CommandEmpty>No cities found.</CommandEmpty>
+              <CommandEmpty>{t('search.noResults')}</CommandEmpty>
             )}
 
             {/* Favorites Section */}
             {favorites.length > 0 && (
-              <CommandGroup heading="Favorites">
+              <CommandGroup heading={t('favorites.title')}>
                 {favorites.map((city) => (
                   <CommandItem
                     key={city.id}
@@ -102,7 +104,7 @@ export function CitySearch() {
                 <CommandGroup>
                   <div className="flex items-center justify-between px-2 my-2">
                     <p className="text-xs text-muted-foreground">
-                      Recent Searches
+                      {t('search.recent')}
                     </p>
                     <Button
                       variant="ghost"
@@ -110,7 +112,7 @@ export function CitySearch() {
                       onClick={() => clearHistory.mutate()}
                     >
                       <XCircle className="h-4 w-4" />
-                      Clear
+                      {t('search.clear')}
                     </Button>
                   </div>
                   {history.map((item: SearchHistoryItem) => (
@@ -141,7 +143,7 @@ export function CitySearch() {
             {/* Search Results */}
             <CommandSeparator />
             {locations && locations.length > 0 && (
-              <CommandGroup heading="Suggestions">
+              <CommandGroup heading={t('search.suggestions')}>
                 {isLoading && (
                   <div className="flex items-center justify-center p-4">
                     <Loader2 className="h-4 w-4 animate-spin" />

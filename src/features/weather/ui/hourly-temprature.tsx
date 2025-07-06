@@ -15,6 +15,7 @@ import {
 import { format } from 'date-fns'
 import type { ForecastData } from '@/features/weather/api/types'
 import { WeatherTestId } from 'tests/resources/enums'
+import { useTranslation } from 'react-i18next'
 
 interface HourlyTemperatureProps {
   data: ForecastData
@@ -27,6 +28,8 @@ interface ChartData {
 }
 
 export function HourlyTemperature({ data }: HourlyTemperatureProps) {
+  const { t } = useTranslation()
+
   // Get today's forecast data and format for chart
 
   const chartData: ChartData[] = data.list
@@ -71,7 +74,7 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
                         <div className="grid grid-cols-2 gap-2">
                           <div className="flex flex-col">
                             <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Temperature
+                              {t('weather.temperature')}
                             </span>
                             <span className="font-bold">
                               {payload[0].value}°
@@ -79,7 +82,7 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
                           </div>
                           <div className="flex flex-col">
                             <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Feels Like
+                              {t('weather.feelsLike')}
                             </span>
                             <span className="font-bold">
                               {payload[1].value}°

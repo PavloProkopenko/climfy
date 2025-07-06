@@ -12,8 +12,10 @@ import { WeatherForecast } from '@/features/weather/ui/weather-forecast'
 import WeatherSkeleton from '@/shared/layout/ui/loading-skeleton'
 import { FavoriteButton } from '@/features/favorites/ui/favorite-button'
 import { WeatherTestId } from 'tests/resources/enums'
+import { useTranslation } from 'react-i18next'
 
 export function CityPage() {
+  const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const params = useParams()
   const lat = parseFloat(searchParams.get('lat') || '0')
@@ -28,9 +30,7 @@ export function CityPage() {
     return (
       <Alert variant="destructive">
         <AlertTriangle className="h-4 w-4" />
-        <AlertDescription>
-          Failed to load weather data. Please try again.
-        </AlertDescription>
+        <AlertDescription>{t('errors.general')}</AlertDescription>
       </Alert>
     )
   }

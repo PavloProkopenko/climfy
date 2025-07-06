@@ -5,6 +5,7 @@ import type { WeatherData } from '@/features/weather/api/types'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 import { toast } from 'sonner'
 import { WeatherTestId } from 'tests/resources/enums'
+import { useTranslation } from 'react-i18next'
 
 interface FavoriteButtonProps {
   data: WeatherData
@@ -12,12 +13,13 @@ interface FavoriteButtonProps {
 
 export function FavoriteButton({ data }: FavoriteButtonProps) {
   const { addFavorite, removeFavorite, isFavorite } = useFavorites()
+  const { t } = useTranslation()
   const isCurrentlyFavorite = isFavorite(data.coord.lat, data.coord.lon)
 
   const handleToggleFavorite = () => {
     if (isCurrentlyFavorite) {
       removeFavorite.mutate(`${data.coord.lat}-${data.coord.lon}`)
-      toast.error(`Removed ${data.name} from Favorites`)
+      toast.error(t('favorites.remove', { city: data.name }))
     } else {
       addFavorite.mutate({
         name: data.name,
@@ -25,7 +27,7 @@ export function FavoriteButton({ data }: FavoriteButtonProps) {
         lon: data.coord.lon,
         country: data.sys.country,
       })
-      toast.success(`Added ${data.name} to Favorites`)
+      toast.success(t('favorites.add', { city: data.name }))
     }
   }
 
