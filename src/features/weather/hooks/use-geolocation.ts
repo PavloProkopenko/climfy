@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { type GeolocationState } from '../resources/interfaces'
+import { type GeolocationState } from '@/shared/resources/interfaces'
 
 export function useGeolocation() {
   const [locationData, setLocationData] = useState<GeolocationState>({
