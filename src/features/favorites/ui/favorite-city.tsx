@@ -8,6 +8,7 @@ import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 import { toast } from 'sonner'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
+import { textToCamelCase } from '@/shared/resources/helpers'
 
 interface FavoriteCityTabletProps {
   id: string
@@ -61,7 +62,9 @@ function FavoriteCityTablet({
           <div className="flex items-center gap-2">
             <img
               src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
-              alt={weather.weather[0].description}
+              alt={t(
+                `weatherDescription.${textToCamelCase(weather.weather[0].description)}`,
+              )}
               className="h-8 w-8"
             />
             <div>
@@ -75,8 +78,10 @@ function FavoriteCityTablet({
             <p className="text-xl font-bold">
               {Math.round(weather.main.temp)}°
             </p>
-            <p className="text-xs capitalize text-muted-foreground">
-              {weather.weather[0].description}
+            <p className="text-xs text-muted-foreground">
+              {t(
+                `weatherDescription.${textToCamelCase(weather.weather[0].description)}`,
+              )}
             </p>
           </div>
         </>
@@ -87,6 +92,7 @@ function FavoriteCityTablet({
 
 export function FavoriteCities() {
   const { favorites, removeFavorite } = useFavorites()
+  const { t } = useTranslation()
 
   if (!favorites.length) {
     return null
@@ -98,7 +104,7 @@ export function FavoriteCities() {
         className="text-xl font-bold tracking-tight"
         data-testid={WeatherTestId.FavoritesHeading}
       >
-        Favorites
+        {t('favorites.title')}
       </h1>
       <ScrollArea className="w-full pb-4">
         <div className="flex gap-4">

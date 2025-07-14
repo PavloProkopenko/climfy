@@ -46,7 +46,7 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
       data-testid={WeatherTestId.HourlyTemperatureContainer}
     >
       <CardHeader>
-        <CardTitle>Today's Temperature</CardTitle>
+        <CardTitle>{t('weather.todayTemperature')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[200px] w-full">

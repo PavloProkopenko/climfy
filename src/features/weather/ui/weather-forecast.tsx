@@ -9,6 +9,7 @@ import { format } from 'date-fns'
 import type { ForecastData } from '@/features/weather/api/types'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
+import { textToCamelCase } from '@/shared/resources/helpers'
 
 interface WeatherForecastProps {
   data: ForecastData
@@ -67,8 +68,6 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
   // Format temperature
   const formatTemp = (temp: number) => `${Math.round(temp)}°`
 
-  console.log(dailyForecasts)
-
   return (
     <Card data-testid={WeatherTestId.WearherForecastContainer}>
       <CardHeader>
@@ -85,8 +84,10 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
                 <p className="font-medium">
                   {format(new Date(day.date * 1000), 'EEE, MMM d')}
                 </p>
-                <p className="text-sm text-muted-foreground capitalize">
-                  {day.weather.description}
+                <p className="text-sm text-muted-foreground">
+                  {t(
+                    `weatherDescription.${textToCamelCase(day.weather.description)}`,
+                  )}
                 </p>
               </div>
 
