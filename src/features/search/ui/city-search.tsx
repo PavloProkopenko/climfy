@@ -52,12 +52,12 @@ export function CitySearch() {
     <>
       <Button
         variant="outline"
-        className="relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+        className="relative justify-start text-sm text-muted-foreground md:w-40 lg:w-64"
         onClick={() => setOpen(true)}
         data-testid={WeatherTestId.SearchBar}
       >
-        <Search className="mr-2 h-4 w-4" />
-        {t('search.placeholder')}
+        <Search className="h-4 w-4 md:mr-2" />
+        <span className="hidden md:inline">{t('search.placeholder')}</span>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <Command>

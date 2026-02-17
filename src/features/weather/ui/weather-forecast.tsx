@@ -78,7 +78,7 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
           {nextDays.map((day) => (
             <div
               key={day.date}
-              className="grid grid-cols-3 items-center gap-4 rounded-lg border p-4"
+              className="grid grid-cols-1 items-center gap-2 rounded-lg border p-4 sm:grid-cols-3 sm:gap-4"
             >
               <div>
                 <p className="font-medium">
@@ -91,7 +91,7 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
                 </p>
               </div>
 
-              <div className="flex justify-center gap-4">
+              <div className="col-span-1 flex flex-wrap items-center gap-4 sm:col-span-2 sm:justify-end">
                 <span className="flex items-center text-green-300">
                   <ArrowDown className="mr-1 h-4 w-4" />
                   {formatTemp(day.temp_min)}
@@ -100,9 +100,6 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
                   <ArrowUp className="mr-1 h-4 w-4" />
                   {formatTemp(day.temp_max)}
                 </span>
-              </div>
-
-              <div className="flex justify-end gap-4">
                 <span className="flex items-center gap-1">
                   <Droplets className="h-4 w-4 text-green-300" />
                   <span className="text-sm">{day.humidity}%</span>
