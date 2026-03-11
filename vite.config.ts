@@ -17,6 +17,35 @@ export default defineConfig({
       '@app': path.resolve(__dirname, 'src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router'],
+          ui: [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-scroll-area',
+            '@radix-ui/react-slot',
+            '@radix-ui/react-tooltip',
+            'lucide-react',
+            'cmdk',
+            'sonner',
+            'class-variance-authority',
+            'clsx',
+            'tailwind-merge',
+          ],
+          charts: ['recharts'],
+          query: ['@tanstack/react-query'],
+          i18n: [
+            'i18next',
+            'react-i18next',
+            'i18next-browser-languagedetector',
+          ],
+          supabase: ['@supabase/supabase-js'],
+        },
+      },
+    },
+  },
   server: {
     port: Number(process.env.REACT_APP_PORT) || 3000,
     open: true,
