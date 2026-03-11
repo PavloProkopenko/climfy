@@ -3,6 +3,7 @@ import { Star } from 'lucide-react'
 import { Button } from '@/shared/components/ui/button'
 import type { WeatherData } from '@/features/weather/api/types'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
+import { useAuth } from '@/features/auth/context/auth-context'
 import { toast } from 'sonner'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
@@ -12,9 +13,12 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ data }: FavoriteButtonProps) {
+  const { user } = useAuth()
   const { addFavorite, removeFavorite, isFavorite } = useFavorites()
   const { t } = useTranslation()
   const isCurrentlyFavorite = isFavorite(data.coord.lat, data.coord.lon)
+
+  if (!user) return null
 
   const handleToggleFavorite = () => {
     if (isCurrentlyFavorite) {

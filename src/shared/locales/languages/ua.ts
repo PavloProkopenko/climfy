@@ -105,4 +105,45 @@ export const ua = {
   footer: {
     madeBy: 'Зроблено з ❤️ Павлом Прокопенком',
   },
+  auth: {
+    login: 'Увійти',
+    loginSubtitle: 'Увійдіть, щоб отримати персоналізовані AI-рекомендації.',
+    register: 'Реєстрація',
+    registerSubtitle: 'Створіть акаунт для персоналізованого досвіду.',
+    logout: 'Вийти',
+    email: 'Email',
+    password: 'Пароль',
+    confirmPassword: 'Підтвердіть пароль',
+    error: {
+      passwordMismatch: 'Паролі не співпадають.',
+    },
+  },
+  onboarding: {
+    title: 'Ласкаво просимо до Climfy! 👋',
+    subtitle: 'Розкажіть про себе, щоб отримати персоналізовані рекомендації.',
+    firstName: "Ваше ім'я",
+    firstNamePlaceholder: 'напр. Олексій',
+    age: 'Ваш вік',
+    activity: 'Рівень активності',
+    activities: {
+      sedentary: 'Офіс / навчання',
+      light: 'Прогулянки',
+      active: 'Спортзал / походи',
+      athletic: 'Спорт / тренування',
+    },
+    submit: 'Почати',
+  },
+  profile: {
+    title: 'Налаштування профілю',
+    save: 'Зберегти зміни',
+    language: 'Мова',
+    temperatureUnit: 'Одиниця температури',
+    celsius: '°C Цельсій',
+    fahrenheit: '°F Фаренгейт',
+  },
+  recommendations: {
+    title: 'Рекомендації',
+    aiPowered: 'AI',
+    loginPrompt: 'Увійдіть, щоб отримати персоналізовані AI-рекомендації',
+  },
 }

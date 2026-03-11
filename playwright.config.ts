@@ -1,12 +1,11 @@
 import { defineConfig, devices } from '@playwright/test'
+import * as dotenv from 'dotenv'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({
+  path: resolve(dirname(fileURLToPath(import.meta.url)), '.env.testing'),
+})
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -35,6 +34,7 @@ export default defineConfig({
     permissions: ['geolocation'],
     locale: 'en-US',
     colorScheme: 'dark',
+    screenshot: 'only-on-failure',
   },
 
   /* Configure projects for major browsers */

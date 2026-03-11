@@ -6,6 +6,7 @@ import type {
 } from '@/features/weather/api/types'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
+import { useTemperatureUnit } from '@/features/weather/hooks/use-temperature-unit'
 
 interface CurrentWeatherProps {
   data: WeatherData
@@ -14,14 +15,14 @@ interface CurrentWeatherProps {
 
 export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
   const { t } = useTranslation()
+  const { convert, unit } = useTemperatureUnit()
   const {
     weather: [currentWeather],
     main: { temp, feels_like, temp_min, temp_max, humidity },
     wind: { speed },
   } = data
 
-  // Format temperature
-  const formatTemp = (temp: number) => `${Math.round(temp)}°`
+  const formatTemp = (celsius: number) => `${convert(celsius)}${unit}`
 
   return (
     <Card

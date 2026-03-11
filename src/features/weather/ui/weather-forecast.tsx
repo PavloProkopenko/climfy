@@ -10,6 +10,7 @@ import type { ForecastData } from '@/features/weather/api/types'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
 import { textToCamelCase } from '@/shared/resources/helpers'
+import { useTemperatureUnit } from '@/features/weather/hooks/use-temperature-unit'
 
 interface WeatherForecastProps {
   data: ForecastData
@@ -31,6 +32,7 @@ interface DailyForecast {
 
 export function WeatherForecast({ data }: WeatherForecastProps) {
   const { t } = useTranslation()
+  const { convert, unit } = useTemperatureUnit()
 
   // Group forecast by day and get daily min/max
   const dailyForecasts = data.list.reduce(
@@ -65,8 +67,7 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
   // Get next 5 days
   const nextDays = Object.values(dailyForecasts).slice(1, 6)
 
-  // Format temperature
-  const formatTemp = (temp: number) => `${Math.round(temp)}°`
+  const formatTemp = (celsius: number) => `${convert(celsius)}${unit}`
 
   return (
     <Card data-testid={WeatherTestId.WearherForecastContainer}>

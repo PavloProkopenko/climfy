@@ -105,4 +105,48 @@ export const de = {
   footer: {
     madeBy: 'Erstellt mit ❤️ von Pavlo Prokopenko',
   },
+  auth: {
+    login: 'Anmelden',
+    loginSubtitle: 'Melden Sie sich an für personalisierte KI-Empfehlungen.',
+    register: 'Registrieren',
+    registerSubtitle:
+      'Erstellen Sie ein Konto für ein personalisiertes Erlebnis.',
+    logout: 'Abmelden',
+    email: 'E-Mail',
+    password: 'Passwort',
+    confirmPassword: 'Passwort bestätigen',
+    error: {
+      passwordMismatch: 'Passwörter stimmen nicht überein.',
+    },
+  },
+  onboarding: {
+    title: 'Willkommen bei Climfy! 👋',
+    subtitle:
+      'Erzählen Sie uns etwas über sich für personalisierte Empfehlungen.',
+    firstName: 'Ihr Vorname',
+    firstNamePlaceholder: 'z.B. Alex',
+    age: 'Ihr Alter',
+    activity: 'Aktivitätslevel',
+    activities: {
+      sedentary: 'Büro / Studium',
+      light: 'Spaziergänge',
+      active: 'Fitnessstudio / Wandern',
+      athletic: 'Sport / Training',
+    },
+    submit: 'Loslegen',
+  },
+  profile: {
+    title: 'Profileinstellungen',
+    save: 'Änderungen speichern',
+    language: 'Sprache',
+    temperatureUnit: 'Temperatureinheit',
+    celsius: '°C Celsius',
+    fahrenheit: '°F Fahrenheit',
+  },
+  recommendations: {
+    title: 'Empfehlungen',
+    aiPowered: 'KI',
+    loginPrompt:
+      'Melden Sie sich an, um personalisierte KI-Empfehlungen zu erhalten',
+  },
 }

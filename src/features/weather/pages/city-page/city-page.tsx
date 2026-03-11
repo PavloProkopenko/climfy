@@ -11,6 +11,7 @@ import { WeatherDetails } from '@/features/weather/ui/weather-details'
 import { WeatherForecast } from '@/features/weather/ui/weather-forecast'
 import WeatherSkeleton from '@/shared/layout/ui/loading-skeleton'
 import { FavoriteButton } from '@/features/favorites/ui/favorite-button'
+import { RecommendationCard } from '@/features/recommendations/ui/recommendation-card'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
 
@@ -58,6 +59,14 @@ export function CityPage() {
       <div className="grid gap-6">
         <CurrentWeather data={weatherQuery.data} />
         <HourlyTemperature data={forecastQuery.data} />
+
+        <RecommendationCard
+          coords={coordinates}
+          weather={weatherQuery.data}
+          cityName={params.cityName}
+          country={weatherQuery.data.sys.country}
+        />
+
         <div className="grid gap-6 md:grid-cols-2 items-start">
           <WeatherDetails data={weatherQuery.data} />
           <WeatherForecast data={forecastQuery.data} />

@@ -16,6 +16,7 @@ import { format } from 'date-fns'
 import type { ForecastData } from '@/features/weather/api/types'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
+import { useTemperatureUnit } from '@/features/weather/hooks/use-temperature-unit'
 
 interface HourlyTemperatureProps {
   data: ForecastData
@@ -29,15 +30,14 @@ interface ChartData {
 
 export function HourlyTemperature({ data }: HourlyTemperatureProps) {
   const { t } = useTranslation()
-
-  // Get today's forecast data and format for chart
+  const { convert, unit } = useTemperatureUnit()
 
   const chartData: ChartData[] = data.list
     .slice(0, 8) // Get next 24 hours (3-hour intervals)
     .map((item) => ({
       time: format(new Date(item.dt * 1000), 'ha'),
-      temp: Math.round(item.main.temp),
-      feels_like: Math.round(item.main.feels_like),
+      temp: convert(item.main.temp),
+      feels_like: convert(item.main.feels_like),
     }))
 
   return (
@@ -64,7 +64,7 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
-                tickFormatter={(value) => `${value}°`}
+                tickFormatter={(value) => `${value}${unit}`}
               />
               <Tooltip
                 content={({ active, payload }) => {
@@ -77,7 +77,8 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
                               {t('weather.temperature')}
                             </span>
                             <span className="font-bold">
-                              {payload[0].value}°
+                              {payload[0].value}
+                              {unit}
                             </span>
                           </div>
                           <div className="flex flex-col">
@@ -85,7 +86,8 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
                               {t('weather.feelsLike')}
                             </span>
                             <span className="font-bold">
-                              {payload[1].value}°
+                              {payload[1].value}
+                              {unit}
                             </span>
                           </div>
                         </div>

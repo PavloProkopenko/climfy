@@ -17,6 +17,7 @@ import { HourlyTemperature } from '@/features/weather/ui/hourly-temprature'
 import { WeatherDetails } from '@/features/weather/ui/weather-details'
 import { WeatherForecast } from '@/features/weather/ui/weather-forecast'
 import { FavoriteCities } from '@/features/favorites/ui/favorite-city'
+import { RecommendationCard } from '@/features/recommendations/ui/recommendation-card'
 import { useTranslation } from 'react-i18next'
 
 const WeatherDashboard = () => {
@@ -124,6 +125,13 @@ const WeatherDashboard = () => {
           />
           <HourlyTemperature data={forecastQuery.data} />
         </div>
+
+        <RecommendationCard
+          coords={coordinates}
+          weather={weatherQuery.data}
+          cityName={locationName?.name ?? weatherQuery.data.name}
+          country={locationName?.country}
+        />
 
         <div className="grid gap-6 md:grid-cols-2 items-start">
           <WeatherDetails data={weatherQuery.data} />

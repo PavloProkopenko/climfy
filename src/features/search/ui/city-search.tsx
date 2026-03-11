@@ -154,6 +154,7 @@ export function CitySearch() {
                     key={`${location.lat}-${location.lon}`}
                     value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
                     onSelect={handleSelect}
+                    data-testid={WeatherTestId.SearchResultItem}
                   >
                     <Search className="mr-2 h-4 w-4" />
                     <span>{location.name}</span>

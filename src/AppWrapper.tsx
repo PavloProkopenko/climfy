@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router'
 import { routes } from './shared/resources/routes'
 import { ThemeProvider } from './shared/context/theme-provider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { AuthProvider } from './features/auth/context/auth-context'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient({
@@ -23,7 +24,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark">
-        <RouterProvider router={routes} />
+        <AuthProvider>
+          <RouterProvider router={routes} />
+        </AuthProvider>
       </ThemeProvider>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>

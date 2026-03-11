@@ -9,6 +9,7 @@ export enum WeatherTestId {
   SearchBar = 'SearchBar',
   SearchBarInput = 'SearchBarInput',
   SearchBarResultList = 'SearchBarResultList',
+  SearchResultItem = 'SearchResultItem',
   FindedLocation = 'Location',
 
   // Favorite feature
@@ -16,4 +17,16 @@ export enum WeatherTestId {
   FavoritesHeading = 'FavoritesHeading',
   FavoriteButton = 'FavoriteButton',
   FavoriteItem = 'FavoriteItem',
+
+  // Auth feature
+  AuthLoginButton = 'AuthLoginButton',
+  AuthEmailInput = 'AuthEmailInput',
+  AuthPasswordInput = 'AuthPasswordInput',
+  AuthSubmitButton = 'AuthSubmitButton',
+  AuthUserButton = 'AuthUserButton',
+  AuthLogoutButton = 'AuthLogoutButton',
+
+  // Recommendations feature
+  RecommendationCard = 'RecommendationCard',
+  RecommendationLoginPrompt = 'RecommendationLoginPrompt',
 }

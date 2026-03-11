@@ -5,6 +5,8 @@ import { ThemeToggle } from '@/shared/layout/ui/theme-toggle'
 import { CitySearch } from '@/features/search/ui/city-search'
 import { WeatherTestId } from 'tests/resources/enums'
 import { LanguagePicker } from '@/shared/layout/ui/language-picker'
+import { AuthButton } from '@/features/auth/ui/auth-button'
+import { OnboardingDialog } from '@/features/auth/ui/onboarding-dialog'
 
 const Header = () => {
   const { theme } = useTheme()
@@ -24,8 +26,10 @@ const Header = () => {
           <CitySearch />
           <ThemeToggle />
           <LanguagePicker />
+          <AuthButton />
         </div>
       </div>
+      <OnboardingDialog />
     </header>
   )
 }

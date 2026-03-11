@@ -5,6 +5,7 @@ import { ScrollArea, ScrollBar } from '@/shared/components/ui/scroll-area'
 import { X, Loader2 } from 'lucide-react'
 import { Button } from '@/shared/components/ui/button'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
+import { useAuth } from '@/features/auth/context/auth-context'
 import { toast } from 'sonner'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
@@ -91,10 +92,11 @@ function FavoriteCityTablet({
 }
 
 export function FavoriteCities() {
+  const { user } = useAuth()
   const { favorites, removeFavorite } = useFavorites()
   const { t } = useTranslation()
 
-  if (!favorites.length) {
+  if (!user || !favorites.length) {
     return null
   }
 
