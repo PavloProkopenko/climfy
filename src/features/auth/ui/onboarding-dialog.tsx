@@ -9,6 +9,7 @@ import {
   DialogDescription,
 } from '@/shared/components/ui/dialog'
 import { useAuth, type ActivityType } from '../context/auth-context'
+import { toast } from 'sonner'
 
 const ACTIVITIES: { value: ActivityType; emoji: string; key: string }[] = [
   { value: 'sedentary', emoji: '🏢', key: 'sedentary' },
@@ -44,6 +45,7 @@ export function OnboardingDialog() {
       activity_type: activityType,
       onboarding_completed: true,
     })
+    toast.success(t('onboarding.success'))
     setLoading(false)
   }
 

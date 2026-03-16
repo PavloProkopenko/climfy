@@ -58,6 +58,7 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
+                padding={{ left: 16 }}
               />
               <YAxis
                 stroke="#888888"
@@ -65,6 +66,7 @@ export function HourlyTemperature({ data }: HourlyTemperatureProps) {
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={(value) => `${value}${unit}`}
+                padding={{ bottom: 10 }}
               />
               <Tooltip
                 content={({ active, payload }) => {

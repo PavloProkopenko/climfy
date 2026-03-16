@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import { RoutePath } from '../resources/enums'
-import { useTheme } from '../context/theme-provider'
+import { useTheme } from '../context/use-theme'
 import { ThemeToggle } from '@/shared/layout/ui/theme-toggle'
 import { CitySearch } from '@/features/search/ui/city-search'
 import { WeatherTestId } from 'tests/resources/enums'

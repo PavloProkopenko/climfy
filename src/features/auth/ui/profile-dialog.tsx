@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from '@/shared/components/ui/dialog'
 import { useAuth, type ActivityType } from '../context/auth-context'
+import { toast } from 'sonner'
 
 const ACTIVITIES: { value: ActivityType; emoji: string; key: string }[] = [
   { value: 'sedentary', emoji: '🏢', key: 'sedentary' },
@@ -66,6 +67,7 @@ export function ProfileDialog({ open, onClose }: ProfileDialogProps) {
       await i18n.changeLanguage(language)
     }
 
+    toast.success(t('profile.success'))
     setLoading(false)
     onClose()
   }

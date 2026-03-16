@@ -134,10 +134,12 @@ export const de = {
       athletic: 'Sport / Training',
     },
     submit: 'Loslegen',
+    success: 'Alles bereit! Willkommen bei Climfy 🌤️',
   },
   profile: {
     title: 'Profileinstellungen',
     save: 'Änderungen speichern',
+    success: 'Einstellungen gespeichert',
     language: 'Sprache',
     temperatureUnit: 'Temperatureinheit',
     celsius: '°C Celsius',

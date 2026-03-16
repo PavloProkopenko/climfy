@@ -132,10 +132,12 @@ export const ua = {
       athletic: 'Спорт / тренування',
     },
     submit: 'Почати',
+    success: 'Все готово! Ласкаво просимо до Climfy 🌤️',
   },
   profile: {
     title: 'Налаштування профілю',
     save: 'Зберегти зміни',
+    success: 'Налаштування збережено',
     language: 'Мова',
     temperatureUnit: 'Одиниця температури',
     celsius: '°C Цельсій',

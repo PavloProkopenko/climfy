@@ -133,10 +133,12 @@ export const en = {
       athletic: 'Sports / training',
     },
     submit: 'Get started',
+    success: "You're all set! Welcome to Climfy 🌤️",
   },
   profile: {
     title: 'Profile Settings',
     save: 'Save changes',
+    success: 'Settings saved',
     language: 'Language',
     temperatureUnit: 'Temperature unit',
     celsius: '°C Celsius',
