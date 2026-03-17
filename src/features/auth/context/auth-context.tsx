@@ -28,6 +28,8 @@ interface AuthContextValue {
   signUp: (email: string, password: string) => Promise<string | null>
   signOut: () => Promise<void>
   updatePreferences: (updates: Partial<UserPreferences>) => Promise<void>
+  sendPasswordReset: (email: string) => Promise<string | null>
+  updatePassword: (password: string) => Promise<string | null>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -111,6 +113,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut()
   }, [])
 
+  const sendPasswordReset = useCallback(async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+    return error?.message ?? null
+  }, [])
+
+  const updatePassword = useCallback(async (password: string) => {
+    const { error } = await supabase.auth.updateUser({ password })
+    return error?.message ?? null
+  }, [])
+
   const updatePreferences = useCallback(
     async (updates: Partial<UserPreferences>) => {
       const session = (await supabase.auth.getSession()).data.session
@@ -144,6 +158,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signUp,
         signOut,
         updatePreferences,
+        sendPasswordReset,
+        updatePassword,
       }}
     >
       {children}

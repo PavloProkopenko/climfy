@@ -118,6 +118,32 @@ export const de = {
     error: {
       passwordMismatch: 'Passwörter stimmen nicht überein.',
     },
+    forgotPassword: {
+      link: 'Passwort vergessen?',
+      title: 'Passwort zurücksetzen',
+      subtitle: 'Geben Sie Ihre E-Mail ein, um einen Reset-Link zu erhalten',
+      submit: 'Reset-Link senden',
+      success: 'Prüfen Sie Ihre E-Mail für den Reset-Link',
+      backToLogin: 'Zurück zur Anmeldung',
+    },
+    resetPassword: {
+      title: 'Neues Passwort festlegen',
+      subtitle: 'Geben Sie Ihr neues Passwort ein',
+      submit: 'Passwort aktualisieren',
+      success: 'Passwort erfolgreich aktualisiert',
+      invalidLink: 'Dieser Passwort-Reset-Link ist ungültig oder abgelaufen.',
+    },
+    validation: {
+      emailInvalid: 'Ungültige E-Mail-Adresse',
+      passwordTooShort: 'Passwort muss mind. 8 Zeichen haben',
+      req: {
+        minLength: 'Mind. 8 Zeichen',
+        uppercase: 'Ein Großbuchstabe',
+        lowercase: 'Ein Kleinbuchstabe',
+        digit: 'Eine Zahl',
+        special: 'Ein Sonderzeichen',
+      },
+    },
   },
   onboarding: {
     title: 'Willkommen bei Climfy! 👋',

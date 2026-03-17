@@ -117,6 +117,32 @@ export const en = {
     error: {
       passwordMismatch: 'Passwords do not match.',
     },
+    forgotPassword: {
+      link: 'Forgot password?',
+      title: 'Reset your password',
+      subtitle: "Enter your email and we'll send you a reset link",
+      submit: 'Send reset link',
+      success: 'Check your email for a reset link',
+      backToLogin: 'Back to login',
+    },
+    resetPassword: {
+      title: 'Set new password',
+      subtitle: 'Enter your new password below',
+      submit: 'Update password',
+      success: 'Password updated successfully',
+      invalidLink: 'This password reset link is invalid or has expired.',
+    },
+    validation: {
+      emailInvalid: 'Invalid email address',
+      passwordTooShort: 'Password must be at least 8 characters',
+      req: {
+        minLength: 'At least 8 characters',
+        uppercase: 'One uppercase letter',
+        lowercase: 'One lowercase letter',
+        digit: 'One number',
+        special: 'One special character',
+      },
+    },
   },
   onboarding: {
     title: 'Welcome to Climfy! 👋',

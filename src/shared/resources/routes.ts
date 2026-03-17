@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router'
 import { RoutePath } from './enums'
 import CityPage from '@/features/weather/pages/city-page/city-page'
 import WeatherDashboard from '@/features/weather/pages/dashboard-page/weather-dashboard'
+import ResetPasswordPage from '@/features/auth/pages/reset-password-page'
 import App from '@/App'
 
 export const routes = createBrowserRouter([
@@ -16,6 +17,10 @@ export const routes = createBrowserRouter([
       {
         path: RoutePath.City,
         Component: CityPage,
+      },
+      {
+        path: RoutePath.ResetPassword,
+        Component: ResetPasswordPage,
       },
     ],
   },

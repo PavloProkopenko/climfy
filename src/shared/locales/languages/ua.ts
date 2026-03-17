@@ -117,6 +117,32 @@ export const ua = {
     error: {
       passwordMismatch: 'Паролі не співпадають.',
     },
+    forgotPassword: {
+      link: 'Забули пароль?',
+      title: 'Скинути пароль',
+      subtitle: 'Введіть email, і ми надішлемо посилання для скидання',
+      submit: 'Надіслати посилання',
+      success: 'Перевірте email для посилання скидання',
+      backToLogin: 'Назад до входу',
+    },
+    resetPassword: {
+      title: 'Встановити новий пароль',
+      subtitle: 'Введіть новий пароль нижче',
+      submit: 'Оновити пароль',
+      success: 'Пароль успішно оновлено',
+      invalidLink: 'Це посилання для скидання паролю недійсне або застаріле.',
+    },
+    validation: {
+      emailInvalid: 'Невірна адреса email',
+      passwordTooShort: 'Пароль має бути не менше 8 символів',
+      req: {
+        minLength: 'Мінімум 8 символів',
+        uppercase: 'Одна велика літера',
+        lowercase: 'Одна мала літера',
+        digit: 'Одна цифра',
+        special: 'Один спеціальний символ',
+      },
+    },
   },
   onboarding: {
     title: 'Ласкаво просимо до Climfy! 👋',
