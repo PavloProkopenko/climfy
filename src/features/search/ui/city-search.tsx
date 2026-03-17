@@ -59,7 +59,13 @@ export function CitySearch() {
         <Search className="h-4 w-4 md:mr-2" />
         <span className="hidden md:inline">{t('search.placeholder')}</span>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog
+        open={open}
+        onOpenChange={() => {
+          setOpen(false)
+          setQuery('')
+        }}
+      >
         <Command>
           <CommandInput
             placeholder={t('search.placeholder')}

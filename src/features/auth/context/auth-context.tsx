@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   useCallback,
   type ReactNode,
@@ -36,6 +37,42 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL as string
 
+const PREFS_CACHE_TTL = 30 * 60 * 1000 // 30 min
+
+function readPrefsCache(userId: string): UserPreferences | null {
+  try {
+    const raw = localStorage.getItem(`climfy_prefs_${userId}`)
+    if (!raw) return null
+    const { data, ts } = JSON.parse(raw) as {
+      data: UserPreferences
+      ts: number
+    }
+    if (Date.now() - ts > PREFS_CACHE_TTL) return null
+    return data
+  } catch {
+    return null
+  }
+}
+
+function writePrefsCache(userId: string, prefs: UserPreferences) {
+  try {
+    localStorage.setItem(
+      `climfy_prefs_${userId}`,
+      JSON.stringify({ data: prefs, ts: Date.now() }),
+    )
+  } catch {
+    // localStorage may be unavailable (private browsing, quota exceeded)
+  }
+}
+
+function clearPrefsCache(userId: string) {
+  try {
+    localStorage.removeItem(`climfy_prefs_${userId}`)
+  } catch {
+    // localStorage may be unavailable
+  }
+}
+
 async function fetchPreferences(
   token: string,
 ): Promise<UserPreferences | null> {
@@ -56,10 +93,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     UserPreferences | null | undefined
   >(undefined)
   const [isLoading, setIsLoading] = useState(true)
+  const loadedForUserRef = useRef<string | null>(null)
 
-  const loadPreferences = useCallback(async (token: string) => {
+  const loadPreferences = useCallback(async (token: string, userId: string) => {
+    if (loadedForUserRef.current === userId) return // dedup: same user already loaded
+    loadedForUserRef.current = userId
+
+    const cached = readPrefsCache(userId)
+    if (cached) {
+      setPreferences(cached)
+      return
+    }
+
     const prefs = await fetchPreferences(token)
     setPreferences(prefs)
+    if (prefs) writePrefsCache(userId, prefs)
   }, [])
 
   useEffect(() => {
@@ -67,8 +115,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.getSession().then(({ data }) => {
       const session = data.session
       setUser(session?.user ?? null)
-      if (session?.access_token) {
-        loadPreferences(session.access_token).finally(() => setIsLoading(false))
+      if (session?.access_token && session.user) {
+        loadPreferences(session.access_token, session.user.id).finally(() =>
+          setIsLoading(false),
+        )
       } else {
         setIsLoading(false)
       }
@@ -76,12 +126,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Keep in sync with Supabase auth state changes
     const { data: listener } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      async (event, session) => {
+        if (event === 'INITIAL_SESSION' || event === 'TOKEN_REFRESHED') return
+
         setUser(session?.user ?? null)
-        if (session?.access_token) {
-          setPreferences(undefined) // mark as "fetching" until response arrives
-          await loadPreferences(session.access_token)
+        if (session?.access_token && session.user) {
+          // Only flash loading state if it's a different user (new sign-in)
+          if (loadedForUserRef.current !== session.user.id) {
+            setPreferences(undefined)
+          }
+          await loadPreferences(session.access_token, session.user.id)
         } else {
+          if (loadedForUserRef.current)
+            clearPrefsCache(loadedForUserRef.current)
+          loadedForUserRef.current = null
           setPreferences(null) // logged out — definitively no preferences
         }
       },
@@ -140,9 +198,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       })
 
       if (res.ok) {
-        setPreferences((prev) =>
-          prev ? { ...prev, ...updates } : (updates as UserPreferences),
-        )
+        setPreferences((prev) => {
+          const updated = prev
+            ? { ...prev, ...updates }
+            : (updates as UserPreferences)
+          if (session.user?.id) writePrefsCache(session.user.id, updated)
+          return updated
+        })
       }
     },
     [],
