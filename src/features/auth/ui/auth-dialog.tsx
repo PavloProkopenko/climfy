@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
 import { LogIn, Check, X } from 'lucide-react'
 import { Button } from '@/shared/components/ui/button'
 import {
@@ -83,6 +84,7 @@ export function AuthDialog() {
     } else {
       setOpen(false)
       registerForm.reset()
+      toast(t('auth.signUpSuccess'))
     }
   }
 

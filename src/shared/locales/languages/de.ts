@@ -118,6 +118,8 @@ export const de = {
     error: {
       passwordMismatch: 'Passwörter stimmen nicht überein.',
     },
+    signUpSuccess:
+      'Prüfen Sie Ihre E-Mail, um Ihr Konto zu bestätigen und fortzufahren.',
     forgotPassword: {
       link: 'Passwort vergessen?',
       title: 'Passwort zurücksetzen',

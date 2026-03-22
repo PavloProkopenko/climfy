@@ -117,6 +117,7 @@ export const ua = {
     error: {
       passwordMismatch: 'Паролі не співпадають.',
     },
+    signUpSuccess: 'Перевірте email, щоб підтвердити акаунт та продовжити.',
     forgotPassword: {
       link: 'Забули пароль?',
       title: 'Скинути пароль',

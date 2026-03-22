@@ -117,6 +117,7 @@ export const en = {
     error: {
       passwordMismatch: 'Passwords do not match.',
     },
+    signUpSuccess: 'Check your email to confirm your account and continue.',
     forgotPassword: {
       link: 'Forgot password?',
       title: 'Reset your password',
