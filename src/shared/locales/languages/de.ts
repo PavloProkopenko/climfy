@@ -178,5 +178,6 @@ export const de = {
     aiPowered: 'KI',
     loginPrompt:
       'Melden Sie sich an, um personalisierte KI-Empfehlungen zu erhalten',
+    unavailable: 'Derzeit keine Empfehlung verfügbar.',
   },
 }

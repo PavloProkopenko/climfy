@@ -175,5 +175,6 @@ export const en = {
     title: 'Recommendations',
     aiPowered: 'AI',
     loginPrompt: 'Log in to get personalized AI recommendations',
+    unavailable: 'No recommendation available right now.',
   },
 }

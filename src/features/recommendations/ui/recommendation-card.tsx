@@ -69,7 +69,7 @@ export function RecommendationCard({
           </div>
         ) : (
           <p className="text-sm leading-relaxed text-muted-foreground">
-            {data?.content}
+            {data?.content || t('recommendations.unavailable')}
           </p>
         )}
       </CardContent>
