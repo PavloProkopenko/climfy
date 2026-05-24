@@ -1,10 +1,11 @@
-import { supabase } from '@/lib/supabase'
+import { apiFetch } from '@/shared/lib/api-client'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL as string
+export type RecommendationDetail = 'short' | 'long'
 
 export interface RecommendationResponse {
   content: string
   is_ai: boolean
+  detail: RecommendationDetail
   generated_at: string
   expires_at: string
   cached: boolean
@@ -21,39 +22,13 @@ export interface RecommendationParams {
   description: string
   city: string
   country?: string
+  detail: RecommendationDetail
 }
 
 export async function fetchRecommendations(
   params: RecommendationParams,
 ): Promise<RecommendationResponse> {
-  const query = new URLSearchParams({
-    lat: params.lat.toString(),
-    lon: params.lon.toString(),
-    lang: params.lang,
-    temp: params.temp.toString(),
-    feels_like: params.feels_like.toString(),
-    humidity: params.humidity.toString(),
-    wind_speed: params.wind_speed.toString(),
-    description: params.description,
-    city: params.city,
-    ...(params.country ? { country: params.country } : {}),
+  return apiFetch<RecommendationResponse>('/recommendations', {
+    query: { ...params },
   })
-
-  const headers: HeadersInit = {}
-
-  // Attach auth token if user is logged in
-  const { data } = await supabase.auth.getSession()
-  if (data.session?.access_token) {
-    headers['Authorization'] = `Bearer ${data.session.access_token}`
-  }
-
-  const res = await fetch(`${API_BASE}/recommendations?${query.toString()}`, {
-    headers,
-  })
-
-  if (!res.ok) {
-    throw new Error(`Recommendations request failed: ${res.status}`)
-  }
-
-  return res.json()
 }

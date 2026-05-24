@@ -28,5 +28,5 @@ export enum WeatherTestId {
 
   // Recommendations feature
   RecommendationCard = 'RecommendationCard',
-  RecommendationLoginPrompt = 'RecommendationLoginPrompt',
+  RecommendationSignInHint = 'RecommendationSignInHint',
 }

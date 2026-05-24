@@ -1,23 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '@/features/auth/context/auth-context'
-import { supabase } from '@/lib/supabase'
+import {
+  favoritesAPI,
+  type FavoriteCity,
+  type FavoriteCityInput,
+} from '../api/favorites'
 
-export interface FavoriteCity {
-  id: string
-  name: string
-  lat: number
-  lon: number
-  country: string
-  state?: string
-  addedAt: number
-}
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL as string
-
-async function getToken(): Promise<string | null> {
-  const { data } = await supabase.auth.getSession()
-  return data.session?.access_token ?? null
-}
+export type { FavoriteCity } from '../api/favorites'
 
 export function useFavorites() {
   const { user } = useAuth()
@@ -26,65 +15,20 @@ export function useFavorites() {
 
   const favoritesQuery = useQuery({
     queryKey,
-    queryFn: async () => {
-      const token = await getToken()
-      if (!token) return []
-      const res = await fetch(`${API_BASE}/favorites`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      if (!res.ok) return []
-      const data = await res.json()
-      return data.map(
-        (item: {
-          id: string
-          city_name: string
-          lat: number
-          lon: number
-          country: string
-          state?: string
-          added_at: string
-        }) => ({
-          id: item.id,
-          name: item.city_name,
-          lat: item.lat,
-          lon: item.lon,
-          country: item.country,
-          state: item.state,
-          addedAt: Date.parse(item.added_at),
-        }),
-      ) as FavoriteCity[]
-    },
+    queryFn: () => favoritesAPI.list(),
     enabled: !!user,
     staleTime: 5 * 60 * 1000,
   })
 
   const addFavorite = useMutation({
-    mutationFn: async (city: Omit<FavoriteCity, 'id' | 'addedAt'>) => {
-      const token = await getToken()
-      if (!token) return
-      await fetch(`${API_BASE}/favorites`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          id: `${city.lat}-${city.lon}`,
-          city_name: city.name,
-          lat: city.lat,
-          lon: city.lon,
-          country: city.country,
-          state: city.state,
-        }),
-      })
-    },
+    mutationFn: (city: FavoriteCityInput) => favoritesAPI.add(city),
     onMutate: async (city) => {
       await queryClient.cancelQueries({ queryKey })
       const previous = queryClient.getQueryData<FavoriteCity[]>(queryKey)
 
       const optimistic: FavoriteCity = {
         ...city,
-        id: `${city.lat}-${city.lon}`,
+        id: favoritesAPI.id(city.lat, city.lon),
         addedAt: Date.now(),
       }
       queryClient.setQueryData<FavoriteCity[]>(queryKey, (old = []) => [
@@ -105,14 +49,7 @@ export function useFavorites() {
   })
 
   const removeFavorite = useMutation({
-    mutationFn: async (cityId: string) => {
-      const token = await getToken()
-      if (!token) return
-      await fetch(`${API_BASE}/favorites/${cityId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      })
-    },
+    mutationFn: (cityId: string) => favoritesAPI.remove(cityId),
     onMutate: async (cityId) => {
       await queryClient.cancelQueries({ queryKey })
       const previous = queryClient.getQueryData<FavoriteCity[]>(queryKey)

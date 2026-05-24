@@ -1,4 +1,7 @@
 export const en = {
+  common: {
+    error: 'Something went wrong. Please try again.',
+  },
   search: {
     placeholder: 'Search cities...',
     noResults: 'No cities found.',
@@ -159,6 +162,23 @@ export const en = {
       active: 'Gym / hiking',
       athletic: 'Sports / training',
     },
+    optionalSection: 'Optional — helps personalize recommendations',
+    gender: 'Gender',
+    genders: {
+      male: 'Male',
+      female: 'Female',
+      other: 'Non-binary',
+      prefer_not_to_say: 'Prefer not to say',
+    },
+    coldSensitivity: 'Cold sensitivity',
+    coldSensitivities: {
+      cold_sensitive: '❄️ Sensitive to cold',
+      neutral: '🙂 Neutral',
+      warm_tolerant: '🔥 Tolerates cold',
+    },
+    bio: 'About you',
+    bioPlaceholder: 'I bike to work, hate the cold, allergic to pollen…',
+    bioRemaining: '{{n}} characters left',
     submit: 'Get started',
     success: "You're all set! Welcome to Climfy 🌤️",
   },
@@ -170,11 +190,16 @@ export const en = {
     temperatureUnit: 'Temperature unit',
     celsius: '°C Celsius',
     fahrenheit: '°F Fahrenheit',
+    personalSection: 'Personal',
+    personalizationSection: 'Personalization',
+    preferencesSection: 'App preferences',
   },
   recommendations: {
     title: 'Recommendations',
     aiPowered: 'AI',
-    loginPrompt: 'Log in to get personalized AI recommendations',
+    signInHint: 'Sign in for AI-personalized recommendations',
     unavailable: 'No recommendation available right now.',
+    showMore: 'Show more',
+    showLess: 'Show less',
   },
 }

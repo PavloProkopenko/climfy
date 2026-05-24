@@ -41,14 +41,14 @@ test.describe('weather app — anonymous', () => {
     )
   })
 
-  test('recommendation card shows login prompt for anonymous user', async ({
+  test('recommendation card shows rule-based content and sign-in hint for anonymous user', async ({
     page,
   }) => {
     await expect(
       page.getByTestId(WeatherTestId.RecommendationCard),
     ).toBeVisible()
     await expect(
-      page.getByTestId(WeatherTestId.RecommendationLoginPrompt),
+      page.getByTestId(WeatherTestId.RecommendationSignInHint),
     ).toBeVisible()
   })
 })
@@ -59,14 +59,14 @@ test.describe('weather app — authenticated', () => {
     await loginTestUser(page)
   })
 
-  test('recommendation card does not show login prompt when logged in', async ({
+  test('recommendation card does not show sign-in hint when logged in', async ({
     page,
   }) => {
     await expect(
       page.getByTestId(WeatherTestId.RecommendationCard),
     ).toBeVisible()
     await expect(
-      page.getByTestId(WeatherTestId.RecommendationLoginPrompt),
+      page.getByTestId(WeatherTestId.RecommendationSignInHint),
     ).not.toBeVisible()
   })
 

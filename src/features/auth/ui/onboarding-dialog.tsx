@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
 import { Button } from '@/shared/components/ui/button'
 import {
   Dialog,
@@ -8,8 +9,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/shared/components/ui/dialog'
-import { useAuth, type ActivityType } from '../context/auth-context'
-import { toast } from 'sonner'
+import {
+  useAuth,
+  type ActivityType,
+  type ColdSensitivity,
+  type Gender,
+} from '../context/auth-context'
+import { PersonalizationFields } from './personalization-fields'
 
 const ACTIVITIES: { value: ActivityType; emoji: string; key: string }[] = [
   { value: 'sedentary', emoji: '🏢', key: 'sedentary' },
@@ -25,6 +31,11 @@ export function OnboardingDialog() {
   const [firstName, setFirstName] = useState('')
   const [age, setAge] = useState('')
   const [activityType, setActivityType] = useState<ActivityType>('light')
+  const [gender, setGender] = useState<Gender | ''>('')
+  const [coldSensitivity, setColdSensitivity] = useState<ColdSensitivity | ''>(
+    '',
+  )
+  const [bio, setBio] = useState('')
   const [loading, setLoading] = useState(false)
 
   // undefined = still fetching (don't show yet)
@@ -43,6 +54,9 @@ export function OnboardingDialog() {
       first_name: firstName.trim(),
       age: parseInt(age),
       activity_type: activityType,
+      gender: gender || undefined,
+      cold_sensitivity: coldSensitivity || undefined,
+      bio: bio.trim() || undefined,
       onboarding_completed: true,
     })
     toast.success(t('onboarding.success'))
@@ -56,7 +70,7 @@ export function OnboardingDialog() {
     <Dialog open={open}>
       {/* No onOpenChange — dialog cannot be dismissed */}
       <DialogContent
-        className="sm:max-w-md"
+        className="sm:max-w-md max-h-[90vh] overflow-y-auto"
         onInteractOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
         showCloseButton={false}
@@ -116,6 +130,20 @@ export function OnboardingDialog() {
                 </button>
               ))}
             </div>
+          </div>
+
+          <div className="pt-2">
+            <p className="mb-3 text-xs uppercase tracking-wide text-muted-foreground">
+              {t('onboarding.optionalSection')}
+            </p>
+            <PersonalizationFields
+              gender={gender}
+              onGenderChange={setGender}
+              coldSensitivity={coldSensitivity}
+              onColdSensitivityChange={setColdSensitivity}
+              bio={bio}
+              onBioChange={setBio}
+            />
           </div>
 
           <Button type="submit" className="w-full" disabled={loading}>

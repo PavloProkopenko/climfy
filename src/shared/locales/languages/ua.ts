@@ -1,4 +1,7 @@
 export const ua = {
+  common: {
+    error: 'Щось пішло не так. Спробуйте ще раз.',
+  },
   search: {
     placeholder: 'Пошук міст...',
     noResults: 'Міст не знайдено.',
@@ -158,6 +161,24 @@ export const ua = {
       active: 'Спортзал / походи',
       athletic: 'Спорт / тренування',
     },
+    optionalSection: 'Необов’язково — допоможе персоналізувати',
+    gender: 'Стать',
+    genders: {
+      male: 'Чоловіча',
+      female: 'Жіноча',
+      other: 'Небінарна',
+      prefer_not_to_say: 'Не вказувати',
+    },
+    coldSensitivity: 'Чутливість до холоду',
+    coldSensitivities: {
+      cold_sensitive: '❄️ Чутливий до холоду',
+      neutral: '🙂 Нейтрально',
+      warm_tolerant: '🔥 Добре переношу холод',
+    },
+    bio: 'Про вас',
+    bioPlaceholder:
+      'Їжджу на роботу велосипедом, не люблю холод, алергія на пилок…',
+    bioRemaining: 'Залишилось {{n}} символів',
     submit: 'Почати',
     success: 'Все готово! Ласкаво просимо до Climfy 🌤️',
   },
@@ -169,11 +190,16 @@ export const ua = {
     temperatureUnit: 'Одиниця температури',
     celsius: '°C Цельсій',
     fahrenheit: '°F Фаренгейт',
+    personalSection: 'Особисте',
+    personalizationSection: 'Персоналізація',
+    preferencesSection: 'Налаштування додатку',
   },
   recommendations: {
     title: 'Рекомендації',
     aiPowered: 'AI',
-    loginPrompt: 'Увійдіть, щоб отримати персоналізовані AI-рекомендації',
+    signInHint: 'Увійдіть для персоналізованих AI-рекомендацій',
+    showMore: 'Більше',
+    showLess: 'Менше',
     unavailable: 'Наразі рекомендація недоступна.',
   },
 }

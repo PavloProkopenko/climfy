@@ -37,7 +37,6 @@ export function CitySearch() {
 
     // Add to search history
     addToHistory.mutate({
-      query,
       name,
       lat: parseFloat(lat),
       lon: parseFloat(lon),

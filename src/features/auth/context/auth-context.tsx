@@ -9,8 +9,13 @@ import {
 } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
+import { apiFetch, ApiError } from '@/shared/lib/api-client'
 
 export type ActivityType = 'sedentary' | 'light' | 'active' | 'athletic'
+export type Gender = 'male' | 'female' | 'other' | 'prefer_not_to_say'
+export type ColdSensitivity = 'cold_sensitive' | 'neutral' | 'warm_tolerant'
+
+export const BIO_MAX_LENGTH = 500
 
 export interface UserPreferences {
   temperature_unit: 'celsius' | 'fahrenheit'
@@ -18,6 +23,9 @@ export interface UserPreferences {
   first_name?: string
   age?: number
   activity_type?: ActivityType
+  bio?: string
+  gender?: Gender
+  cold_sensitivity?: ColdSensitivity
   onboarding_completed: boolean
 }
 
@@ -34,8 +42,6 @@ interface AuthContextValue {
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL as string
 
 const PREFS_CACHE_TTL = 30 * 60 * 1000 // 30 min
 
@@ -73,15 +79,9 @@ function clearPrefsCache(userId: string) {
   }
 }
 
-async function fetchPreferences(
-  token: string,
-): Promise<UserPreferences | null> {
+async function fetchPreferences(): Promise<UserPreferences | null> {
   try {
-    const res = await fetch(`${API_BASE}/preferences`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    if (!res.ok) return null
-    return res.json()
+    return await apiFetch<UserPreferences>('/preferences')
   } catch {
     return null
   }
@@ -95,7 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
   const loadedForUserRef = useRef<string | null>(null)
 
-  const loadPreferences = useCallback(async (token: string, userId: string) => {
+  const loadPreferences = useCallback(async (userId: string) => {
     if (loadedForUserRef.current === userId) return // dedup: same user already loaded
     loadedForUserRef.current = userId
 
@@ -105,7 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return
     }
 
-    const prefs = await fetchPreferences(token)
+    const prefs = await fetchPreferences()
     setPreferences(prefs)
     if (prefs) writePrefsCache(userId, prefs)
   }, [])
@@ -115,10 +115,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.getSession().then(({ data }) => {
       const session = data.session
       setUser(session?.user ?? null)
-      if (session?.access_token && session.user) {
-        loadPreferences(session.access_token, session.user.id).finally(() =>
-          setIsLoading(false),
-        )
+      if (session?.user) {
+        loadPreferences(session.user.id).finally(() => setIsLoading(false))
       } else {
         setIsLoading(false)
       }
@@ -130,12 +128,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (event === 'INITIAL_SESSION' || event === 'TOKEN_REFRESHED') return
 
         setUser(session?.user ?? null)
-        if (session?.access_token && session.user) {
+        if (session?.user) {
           // Only flash loading state if it's a different user (new sign-in)
           if (loadedForUserRef.current !== session.user.id) {
             setPreferences(undefined)
           }
-          await loadPreferences(session.access_token, session.user.id)
+          await loadPreferences(session.user.id)
         } else {
           if (loadedForUserRef.current)
             clearPrefsCache(loadedForUserRef.current)
@@ -188,24 +186,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const session = (await supabase.auth.getSession()).data.session
       if (!session) return
 
-      const res = await fetch(`${API_BASE}/preferences`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify(updates),
-      })
-
-      if (res.ok) {
-        setPreferences((prev) => {
-          const updated = prev
-            ? { ...prev, ...updates }
-            : (updates as UserPreferences)
-          if (session.user?.id) writePrefsCache(session.user.id, updated)
-          return updated
+      try {
+        await apiFetch<void>('/preferences', {
+          method: 'PUT',
+          body: updates,
         })
+      } catch (err) {
+        if (err instanceof ApiError) return
+        throw err
       }
+
+      setPreferences((prev) => {
+        const updated = prev
+          ? { ...prev, ...updates }
+          : (updates as UserPreferences)
+        if (session.user?.id) writePrefsCache(session.user.id, updated)
+        return updated
+      })
     },
     [],
   )

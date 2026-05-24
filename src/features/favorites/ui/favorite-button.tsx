@@ -1,12 +1,12 @@
-// src/components/weather/favorite-button.tsx
 import { Star } from 'lucide-react'
+import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/shared/components/ui/button'
 import type { WeatherData } from '@/features/weather/api/types'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
+import { favoritesAPI } from '@/features/favorites/api/favorites'
 import { useAuth } from '@/features/auth/context/auth-context'
-import { toast } from 'sonner'
 import { WeatherTestId } from 'tests/resources/enums'
-import { useTranslation } from 'react-i18next'
 
 interface FavoriteButtonProps {
   data: WeatherData
@@ -20,18 +20,30 @@ export function FavoriteButton({ data }: FavoriteButtonProps) {
 
   if (!user) return null
 
+  const cityName = data.name
+  const onError = () => toast.error(t('common.error'))
+
   const handleToggleFavorite = () => {
     if (isCurrentlyFavorite) {
-      removeFavorite.mutate(`${data.coord.lat}-${data.coord.lon}`)
-      toast.error(t('favorites.remove', { city: data.name }))
-    } else {
-      addFavorite.mutate({
-        name: data.name,
-        lat: data.coord.lat,
-        lon: data.coord.lon,
-        country: data.sys.country,
+      removeFavorite.mutate(favoritesAPI.id(data.coord.lat, data.coord.lon), {
+        onSuccess: () =>
+          toast.success(t('favorites.remove', { city: cityName })),
+        onError,
       })
-      toast.success(t('favorites.add', { city: data.name }))
+    } else {
+      addFavorite.mutate(
+        {
+          name: cityName,
+          lat: data.coord.lat,
+          lon: data.coord.lon,
+          country: data.sys.country,
+        },
+        {
+          onSuccess: () =>
+            toast.success(t('favorites.add', { city: cityName })),
+          onError,
+        },
+      )
     }
   }
 

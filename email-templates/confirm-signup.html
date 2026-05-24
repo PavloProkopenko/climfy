@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm your Climfy account</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+        sans-serif;
+    "
+  >
+    <table
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      style="background-color: #f5f5f5; padding: 40px 16px"
+    >
+      <tr>
+        <td align="center">
+          <!-- Card -->
+          <table
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="
+              max-width: 520px;
+              background-color: #ffffff;
+              border-radius: 12px;
+              border: 1px solid #e8e8e8;
+              overflow: hidden;
+            "
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                style="
+                  background: linear-gradient(to bottom, #69dfb0, #3d9973);
+                  padding: 32px 40px;
+                  text-align: center;
+                "
+              >
+                <table cellpadding="0" cellspacing="0" style="margin: 0 auto">
+                  <tr>
+                    <td>
+                      <!-- Cloud icon -->
+                      <svg
+                        width="44"
+                        height="30"
+                        viewBox="0 0 600 434"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style="display: block; margin: 0 auto 10px"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M432.507 91C404.982 37 347.681 0 281.25 0C192.206 0 119.438 66.5 113.119 151C47.663 169 0 224 0 289.3C0 366.4 66.375 429.6 150 434H431.25C524.363 434 600 357 600 262.2C600 170.8 525.919 96.3 432.507 91Z"
+                          fill="rgba(255,255,255,0.25)"
+                        />
+                      </svg>
+                      <span
+                        style="
+                          font-size: 28px;
+                          font-weight: 700;
+                          color: #ffffff;
+                          letter-spacing: -0.5px;
+                        "
+                        >Climfy</span
+                      >
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style="padding: 40px 40px 32px">
+                <p
+                  style="
+                    margin: 0 0 8px;
+                    font-size: 22px;
+                    font-weight: 700;
+                    color: #0a0a0a;
+                    letter-spacing: -0.3px;
+                  "
+                >
+                  Confirm your email
+                </p>
+                <p
+                  style="
+                    margin: 0 0 28px;
+                    font-size: 15px;
+                    color: #717171;
+                    line-height: 1.6;
+                  "
+                >
+                  Thanks for signing up! Click the button below to verify your
+                  email address and activate your Climfy account.
+                </p>
+
+                <!-- CTA Button -->
+                <table cellpadding="0" cellspacing="0" style="margin: 0 0 28px">
+                  <tr>
+                    <td style="background-color: #5db28e; border-radius: 8px">
+                      <a
+                        href="{{ .ConfirmationURL }}"
+                        style="
+                          display: inline-block;
+                          padding: 13px 28px;
+                          font-size: 15px;
+                          font-weight: 600;
+                          color: #ffffff;
+                          text-decoration: none;
+                          letter-spacing: 0.1px;
+                        "
+                      >
+                        Confirm email address
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <p
+                  style="
+                    margin: 0 0 4px;
+                    font-size: 13px;
+                    color: #717171;
+                    line-height: 1.5;
+                  "
+                >
+                  If the button doesn't work, copy and paste this link into your
+                  browser:
+                </p>
+                <p style="margin: 0; font-size: 12px; word-break: break-all">
+                  <a
+                    href="{{ .ConfirmationURL }}"
+                    style="color: #5db28e; text-decoration: none"
+                    >{{ .ConfirmationURL }}</a
+                  >
+                </p>
+              </td>
+            </tr>
+
+            <!-- Divider -->
+            <tr>
+              <td style="padding: 0 40px">
+                <div style="height: 1px; background-color: #e8e8e8"></div>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="padding: 24px 40px; text-align: center">
+                <p style="margin: 0 0 4px; font-size: 12px; color: #717171">
+                  If you didn't create a Climfy account, you can safely ignore
+                  this email.
+                </p>
+                <p style="margin: 0; font-size: 12px; color: #a3a3a3">
+                  Made with ❤️ by Pavlo Prokopenko
+                </p>
+              </td>
+            </tr>
+          </table>
+          <!-- /Card -->
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

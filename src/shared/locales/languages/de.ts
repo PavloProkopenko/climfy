@@ -1,4 +1,7 @@
 export const de = {
+  common: {
+    error: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
+  },
   search: {
     placeholder: 'Städte suchen...',
     noResults: 'Keine Städte gefunden.',
@@ -161,6 +164,24 @@ export const de = {
       active: 'Fitnessstudio / Wandern',
       athletic: 'Sport / Training',
     },
+    optionalSection: 'Optional — hilft beim Personalisieren',
+    gender: 'Geschlecht',
+    genders: {
+      male: 'Männlich',
+      female: 'Weiblich',
+      other: 'Non-binär',
+      prefer_not_to_say: 'Keine Angabe',
+    },
+    coldSensitivity: 'Kälteempfindlichkeit',
+    coldSensitivities: {
+      cold_sensitive: '❄️ Kälteempfindlich',
+      neutral: '🙂 Neutral',
+      warm_tolerant: '🔥 Verträgt Kälte gut',
+    },
+    bio: 'Über dich',
+    bioPlaceholder:
+      'Ich fahre mit dem Rad zur Arbeit, mag keine Kälte, allergisch gegen Pollen…',
+    bioRemaining: 'Noch {{n}} Zeichen',
     submit: 'Loslegen',
     success: 'Alles bereit! Willkommen bei Climfy 🌤️',
   },
@@ -172,12 +193,16 @@ export const de = {
     temperatureUnit: 'Temperatureinheit',
     celsius: '°C Celsius',
     fahrenheit: '°F Fahrenheit',
+    personalSection: 'Persönlich',
+    personalizationSection: 'Personalisierung',
+    preferencesSection: 'App-Einstellungen',
   },
   recommendations: {
     title: 'Empfehlungen',
     aiPowered: 'KI',
-    loginPrompt:
-      'Melden Sie sich an, um personalisierte KI-Empfehlungen zu erhalten',
+    signInHint: 'Anmelden für KI-personalisierte Empfehlungen',
     unavailable: 'Derzeit keine Empfehlung verfügbar.',
+    showMore: 'Mehr anzeigen',
+    showLess: 'Weniger anzeigen',
   },
 }

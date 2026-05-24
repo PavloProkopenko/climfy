@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from '@/features/auth/context/auth-context'
+
+type LanguageCode = 'en' | 'de' | 'ua'
 
 export const LanguagePicker = () => {
   const { i18n } = useTranslation()
+  const { user, preferences, updatePreferences } = useAuth()
 
-  const languages = [
+  const languages: { code: LanguageCode; label: string }[] = [
     { code: 'en', label: 'EN' },
     { code: 'de', label: 'DE' },
     { code: 'ua', label: 'UA' },
@@ -12,10 +16,19 @@ export const LanguagePicker = () => {
   const [open, setOpen] = useState(false)
   const current =
     languages.find((l) => l.code === i18n.language) || languages[0]
-  const selectLanguage = (code: string) => {
+
+  const selectLanguage = (code: LanguageCode) => {
     i18n.changeLanguage(code)
     setOpen(false)
+    // Persist to backend so AI generation uses the right language and the
+    // profile dialog stays in sync. Skip the call when it's already set.
+    if (user && preferences && preferences.language !== code) {
+      updatePreferences({ language: code }).catch((err) => {
+        console.error('[LanguagePicker] failed to persist language:', err)
+      })
+    }
   }
+
   return (
     <div className="relative inline-block">
       <button
