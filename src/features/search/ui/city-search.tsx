@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { format } from 'date-fns'
-import { Search, Loader2, Clock, Star, XCircle } from 'lucide-react'
+import { formatDistanceToNow } from 'date-fns'
+import { Search, Clock, Star, XCircle, MapPin } from 'lucide-react'
 import { useLocationSearch } from '@/features/weather/hooks/use-weather'
 import {
   useSearchHistory,
@@ -17,10 +17,15 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/shared/components/ui/command'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 import { Button } from '@/shared/components/ui/button'
 import { useFavorites } from '@/features/favorites/hooks/use-favorite'
 import { WeatherTestId } from 'tests/resources/enums'
 import { useTranslation } from 'react-i18next'
+
+const isMac =
+  typeof navigator !== 'undefined' &&
+  navigator.platform.toUpperCase().includes('MAC')
 
 export function CitySearch() {
   const [open, setOpen] = useState(false)
@@ -28,14 +33,24 @@ export function CitySearch() {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const { data: locations, isLoading } = useLocationSearch(query)
+  const { data: locations, isFetching } = useLocationSearch(query)
   const { favorites } = useFavorites()
   const { history, clearHistory, addToHistory } = useSearchHistory()
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpen((v) => !v)
+      }
+    }
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
+  }, [])
 
   const handleSelect = (cityData: string) => {
     const [lat, lon, name, country] = cityData.split('|')
 
-    // Add to search history
     addToHistory.mutate({
       name,
       lat: parseFloat(lat),
@@ -44,8 +59,12 @@ export function CitySearch() {
     })
 
     setOpen(false)
+    setQuery('')
     navigate(`/city/${name}?lat=${lat}&lon=${lon}`)
   }
+
+  const hasAboveContent = favorites.length > 0 || history.length > 0
+  const hasResultsContent = isFetching || (locations && locations.length > 0)
 
   return (
     <>
@@ -57,7 +76,11 @@ export function CitySearch() {
       >
         <Search className="h-4 w-4 md:mr-2" />
         <span className="hidden md:inline">{t('search.placeholder')}</span>
+        <kbd className="hidden lg:inline-flex ml-auto items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground font-mono pointer-events-none">
+          {isMac ? '⌘' : 'Ctrl'} K
+        </kbd>
       </Button>
+
       <CommandDialog
         open={open}
         onOpenChange={() => {
@@ -73,11 +96,19 @@ export function CitySearch() {
             data-testid={WeatherTestId.SearchBarInput}
           />
           <CommandList data-testid={WeatherTestId.SearchBarResultList}>
-            {query.length > 2 && !isLoading && (
+            {query.length > 2 && !isFetching && Array.isArray(locations) && (
               <CommandEmpty>{t('search.noResults')}</CommandEmpty>
             )}
 
-            {/* Favorites Section */}
+            {/* Empty state hint — shown only when there's nothing to display */}
+            {query === '' && favorites.length === 0 && history.length === 0 && (
+              <div className="flex min-h-[200px] w-full items-center justify-center gap-2 text-foreground">
+                <Search className="h-5 w-5 shrink-0" />
+                <p className="text-base">{t('search.emptyHint')}</p>
+              </div>
+            )}
+
+            {/* Favorites */}
             {favorites.length > 0 && (
               <CommandGroup heading={t('favorites.title')}>
                 {favorites.map((city) => (
@@ -102,7 +133,7 @@ export function CitySearch() {
               </CommandGroup>
             )}
 
-            {/* Search History Section */}
+            {/* Search history */}
             {history.length > 0 && (
               <>
                 <CommandSeparator />
@@ -137,7 +168,9 @@ export function CitySearch() {
                         , {item.country}
                       </span>
                       <span className="ml-auto text-xs text-muted-foreground">
-                        {format(item.searchedAt, 'MMM d, h:mm a')}
+                        {formatDistanceToNow(item.searchedAt, {
+                          addSuffix: true,
+                        })}
                       </span>
                     </CommandItem>
                   ))}
@@ -145,23 +178,32 @@ export function CitySearch() {
               </>
             )}
 
-            {/* Search Results */}
-            <CommandSeparator />
-            {locations && locations.length > 0 && (
+            {/* Separator — only when there's content on both sides */}
+            {hasAboveContent && hasResultsContent && <CommandSeparator />}
+
+            {/* Skeleton while loading */}
+            {isFetching && query.length >= 3 && (
               <CommandGroup heading={t('search.suggestions')}>
-                {isLoading && (
-                  <div className="flex items-center justify-center p-4">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  </div>
-                )}
-                {locations?.map((location) => (
+                {[1, 2, 3].map((i) => (
+                  <CommandItem key={i} disabled className="gap-2">
+                    <Skeleton className="h-4 w-4 rounded-full shrink-0" />
+                    <Skeleton className="h-4 flex-1" />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+
+            {/* Results */}
+            {!isFetching && locations && locations.length > 0 && (
+              <CommandGroup heading={t('search.suggestions')}>
+                {locations.map((location) => (
                   <CommandItem
                     key={`${location.lat}-${location.lon}`}
                     value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
                     onSelect={handleSelect}
                     data-testid={WeatherTestId.SearchResultItem}
                   >
-                    <Search className="mr-2 h-4 w-4" />
+                    <MapPin className="mr-2 h-4 w-4 text-muted-foreground" />
                     <span>{location.name}</span>
                     {location.state && (
                       <span className="text-sm text-muted-foreground">

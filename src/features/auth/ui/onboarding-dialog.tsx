@@ -18,7 +18,7 @@ import {
 import { PersonalizationFields } from './personalization-fields'
 
 const ACTIVITIES: { value: ActivityType; emoji: string; key: string }[] = [
-  { value: 'sedentary', emoji: '🏢', key: 'sedentary' },
+  { value: 'sedentary', emoji: '💤', key: 'sedentary' },
   { value: 'light', emoji: '🚶', key: 'light' },
   { value: 'active', emoji: '🏋️', key: 'active' },
   { value: 'athletic', emoji: '🏃', key: 'athletic' },

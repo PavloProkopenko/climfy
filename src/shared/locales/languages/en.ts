@@ -8,6 +8,7 @@ export const en = {
     recent: 'Recent Searches',
     clear: 'Clear',
     suggestions: 'Suggestions',
+    emptyHint: 'Type a city name to explore the weather',
   },
   location: {
     enable: 'Enable Location',
@@ -157,10 +158,10 @@ export const en = {
     age: 'Your age',
     activity: 'Activity level',
     activities: {
-      sedentary: 'Office / studying',
-      light: 'Casual walks',
-      active: 'Gym / hiking',
-      athletic: 'Sports / training',
+      sedentary: 'Minimal',
+      light: 'Light',
+      active: 'Moderate',
+      athletic: 'High',
     },
     optionalSection: 'Optional — helps personalize recommendations',
     gender: 'Gender',
@@ -193,6 +194,16 @@ export const en = {
     personalSection: 'Personal',
     personalizationSection: 'Personalization',
     preferencesSection: 'App preferences',
+    tabs: {
+      profile: 'Profile',
+      personalization: 'Personalization',
+      preferences: 'Preferences',
+    },
+    personalizationHint:
+      'These optional fields help Claude tailor weather advice specifically for you.',
+    theme: 'Theme',
+    themeLight: 'Light',
+    themeDark: 'Dark',
   },
   recommendations: {
     title: 'Recommendations',

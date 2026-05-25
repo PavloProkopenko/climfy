@@ -1,3 +1,4 @@
+import TextareaAutosize from 'react-textarea-autosize'
 import { useTranslation } from 'react-i18next'
 import {
   BIO_MAX_LENGTH,
@@ -23,8 +24,8 @@ interface PersonalizationFieldsProps {
 
 const pillBase =
   'rounded-md border px-3 py-1.5 text-sm transition-colors text-left'
-const pillSelected = 'border-primary bg-primary/10 text-primary font-medium'
-const pillUnselected = 'border-border hover:border-primary/50 hover:bg-muted'
+const pillSelected = 'border-brand bg-brand/10 text-brand font-medium'
+const pillUnselected = 'border-border hover:border-brand/50 hover:bg-muted'
 
 export function PersonalizationFields({
   gender,
@@ -61,7 +62,7 @@ export function PersonalizationFields({
         <label className="text-sm font-medium">
           {t('onboarding.coldSensitivity')}
         </label>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="flex flex-col gap-2">
           {COLD_SENSITIVITIES.map((value) => (
             <button
               key={value}
@@ -69,7 +70,7 @@ export function PersonalizationFields({
               onClick={() =>
                 onColdSensitivityChange(coldSensitivity === value ? '' : value)
               }
-              className={`${pillBase} text-center ${
+              className={`${pillBase} ${
                 coldSensitivity === value ? pillSelected : pillUnselected
               }`}
             >
@@ -81,10 +82,11 @@ export function PersonalizationFields({
 
       <div className="space-y-1">
         <label className="text-sm font-medium">{t('onboarding.bio')}</label>
-        <textarea
+        <TextareaAutosize
           value={bio}
           onChange={(e) => onBioChange(e.target.value.slice(0, BIO_MAX_LENGTH))}
-          rows={3}
+          minRows={3}
+          maxRows={8}
           maxLength={BIO_MAX_LENGTH}
           placeholder={t('onboarding.bioPlaceholder')}
           className="w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"

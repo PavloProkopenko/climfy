@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Sparkles, LogIn } from 'lucide-react'
+import { Sparkles, LogIn, Loader2 } from 'lucide-react'
 import { Button } from '@/shared/components/ui/button'
 import {
   Card,
@@ -51,16 +51,16 @@ export function RecommendationCard({
   return (
     <Card
       data-testid={WeatherTestId.RecommendationCard}
-      className="border-primary/20 bg-primary/10"
+      className="border-brand/20 bg-brand/10"
     >
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary" />
+          <Sparkles className="h-4 w-4 text-brand" />
           {t('recommendations.title')}
         </CardTitle>
         {data?.is_ai && (
           <CardAction>
-            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+            <span className="rounded-full bg-brand/10 px-2 py-0.5 text-xs font-medium text-brand">
               {t('recommendations.aiPowered')}
             </span>
           </CardAction>
@@ -70,8 +70,8 @@ export function RecommendationCard({
       <CardContent className="space-y-3">
         {isLoading ? (
           <div className="space-y-2" data-testid="RecommendationSkeleton">
-            <Skeleton className="h-4 w-full bg-primary/20" />
-            <Skeleton className="h-4 w-5/6 bg-primary/20" />
+            <Skeleton className="h-4 w-full bg-brand/20" />
+            <Skeleton className="h-4 w-5/6 bg-brand/20" />
           </div>
         ) : (
           <p className="text-base leading-relaxed text-foreground text-justify">
@@ -83,13 +83,17 @@ export function RecommendationCard({
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-2 text-primary hover:bg-primary/10 hover:text-primary"
+            className="-ml-2 text-brand hover:bg-brand/10 hover:text-brand"
             onClick={() => setDetail(isLong ? 'short' : 'long')}
             disabled={isFetching}
           >
-            {isLong
-              ? t('recommendations.showLess')
-              : t('recommendations.showMore')}
+            {isFetching ? (
+              <Loader2 className="h-3 w-3 animate-spin" />
+            ) : isLong ? (
+              t('recommendations.showLess')
+            ) : (
+              t('recommendations.showMore')
+            )}
           </Button>
         )}
 

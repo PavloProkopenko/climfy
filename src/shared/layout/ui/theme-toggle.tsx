@@ -1,23 +1,23 @@
 import { SunIcon, MoonIcon } from 'lucide-react'
 import { useTheme } from '@/shared/context/use-theme'
+import { Button } from '@/shared/components/ui/button'
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
   const isDark = theme === 'dark'
 
   return (
-    <div
+    <Button
+      variant="ghost"
+      size="icon"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className={`flex items-center cursor-pointer transition-transform duration-500 ${
-        isDark ? 'rotate-180' : 'rotate-0'
-      }`}
+      aria-label="Toggle theme"
     >
       {isDark ? (
-        <SunIcon className="h-6 w-6 text-green-300 rotate-0 transition-all" />
+        <SunIcon className="h-5 w-5 text-brand transition-transform duration-500 rotate-0" />
       ) : (
-        <MoonIcon className="h-6 w-6 text-green-300 rotate-0 transition-all" />
+        <MoonIcon className="h-5 w-5 text-brand transition-transform duration-500 rotate-180" />
       )}
-      <span className="sr-only">Toggle theme</span>
-    </div>
+    </Button>
   )
 }

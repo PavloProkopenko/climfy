@@ -8,6 +8,7 @@ export const de = {
     recent: 'Letzte Suchen',
     clear: 'Löschen',
     suggestions: 'Vorschläge',
+    emptyHint: 'Stadtname eingeben, um das Wetter zu erkunden',
   },
   location: {
     enable: 'Standort aktivieren',
@@ -159,10 +160,10 @@ export const de = {
     age: 'Ihr Alter',
     activity: 'Aktivitätslevel',
     activities: {
-      sedentary: 'Büro / Studium',
-      light: 'Spaziergänge',
-      active: 'Fitnessstudio / Wandern',
-      athletic: 'Sport / Training',
+      sedentary: 'Minimal',
+      light: 'Leicht',
+      active: 'Moderat',
+      athletic: 'Intensiv',
     },
     optionalSection: 'Optional — hilft beim Personalisieren',
     gender: 'Geschlecht',
@@ -196,6 +197,16 @@ export const de = {
     personalSection: 'Persönlich',
     personalizationSection: 'Personalisierung',
     preferencesSection: 'App-Einstellungen',
+    tabs: {
+      profile: 'Profil',
+      personalization: 'Personalisierung',
+      preferences: 'Einstellungen',
+    },
+    personalizationHint:
+      'Diese optionalen Felder helfen Claude, Wetterempfehlungen gezielt auf dich abzustimmen.',
+    theme: 'Erscheinungsbild',
+    themeLight: 'Hell',
+    themeDark: 'Dunkel',
   },
   recommendations: {
     title: 'Empfehlungen',

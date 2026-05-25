@@ -27,8 +27,10 @@ export interface RecommendationParams {
 
 export async function fetchRecommendations(
   params: RecommendationParams,
+  signal?: AbortSignal,
 ): Promise<RecommendationResponse> {
   return apiFetch<RecommendationResponse>('/recommendations', {
     query: { ...params },
+    signal,
   })
 }

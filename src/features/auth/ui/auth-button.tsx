@@ -25,7 +25,7 @@ export function AuthButton() {
     <div className="relative">
       <button
         onClick={() => setMenuOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-sm hover:bg-muted transition-colors"
+        className="flex items-center gap-2 rounded-md border border-input bg-background px-3 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
         data-testid="AuthUserButton"
       >
         <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-semibold">

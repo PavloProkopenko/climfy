@@ -47,7 +47,7 @@ export function useRecommendations({
 
   return useQuery({
     queryKey: ['recommendation', params],
-    queryFn: () => fetchRecommendations(params!),
+    queryFn: ({ signal }) => fetchRecommendations(params!, signal),
     // The backend serves rule-based content to anonymous users and
     // AI content to fully-onboarded users. The only path that 403s is
     // logged-in-but-onboarding-incomplete, so skip just that case.

@@ -8,6 +8,7 @@ export const ua = {
     recent: 'Останні пошуки',
     clear: 'Очистити',
     suggestions: 'Пропозиції',
+    emptyHint: 'Введіть назву міста, щоб переглянути погоду',
   },
   location: {
     enable: 'Увімкнути геолокацію',
@@ -156,10 +157,10 @@ export const ua = {
     age: 'Ваш вік',
     activity: 'Рівень активності',
     activities: {
-      sedentary: 'Офіс / навчання',
-      light: 'Прогулянки',
-      active: 'Спортзал / походи',
-      athletic: 'Спорт / тренування',
+      sedentary: 'Мінімальна',
+      light: 'Легка',
+      active: 'Помірна',
+      athletic: 'Висока',
     },
     optionalSection: 'Необов’язково — допоможе персоналізувати',
     gender: 'Стать',
@@ -193,6 +194,16 @@ export const ua = {
     personalSection: 'Особисте',
     personalizationSection: 'Персоналізація',
     preferencesSection: 'Налаштування додатку',
+    tabs: {
+      profile: 'Профіль',
+      personalization: 'Персоналізація',
+      preferences: 'Налаштування',
+    },
+    personalizationHint:
+      "Ці необов'язкові поля допомагають Claude надавати точніші погодні поради саме для вас.",
+    theme: 'Тема',
+    themeLight: 'Світла',
+    themeDark: 'Темна',
   },
   recommendations: {
     title: 'Рекомендації',
