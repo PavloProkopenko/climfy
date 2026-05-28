@@ -165,6 +165,12 @@ export const de = {
       active: 'Moderat',
       athletic: 'Intensiv',
     },
+    activityDescriptions: {
+      sedentary: 'Kaum oder keine Bewegung, meist sitzend',
+      light: 'Leichte Spaziergänge oder Sport 1–3 Tage pro Woche',
+      active: 'Moderates Training 3–5 Tage pro Woche',
+      athletic: 'Intensives Training 6–7 Tage pro Woche',
+    },
     optionalSection: 'Optional — hilft beim Personalisieren',
     gender: 'Geschlecht',
     genders: {
@@ -178,6 +184,11 @@ export const de = {
       cold_sensitive: '❄️ Kälteempfindlich',
       neutral: '🙂 Neutral',
       warm_tolerant: '🔥 Verträgt Kälte gut',
+    },
+    coldSensitivityDescriptions: {
+      cold_sensitive: 'Du frierst leicht, auch bei mildem Wetter',
+      neutral: 'Du kommst mit den meisten Temperaturen gut zurecht',
+      warm_tolerant: 'Du frierst selten, auch bei niedrigen Temperaturen',
     },
     bio: 'Über dich',
     bioPlaceholder:

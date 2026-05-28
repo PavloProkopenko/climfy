@@ -5,6 +5,7 @@ import {
   type ColdSensitivity,
   type Gender,
 } from '../context/auth-context'
+import { InfoTooltip } from '@/shared/components/ui/tooltip'
 
 const GENDERS: Gender[] = ['male', 'female', 'other', 'prefer_not_to_say']
 const COLD_SENSITIVITIES: ColdSensitivity[] = [
@@ -40,7 +41,7 @@ export function PersonalizationFields({
 
   return (
     <div className="space-y-4">
-      <div className="space-y-2">
+      <div className="flex flex-col gap-3">
         <label className="text-sm font-medium">{t('onboarding.gender')}</label>
         <div className="grid grid-cols-2 gap-2">
           {GENDERS.map((value) => (
@@ -58,29 +59,36 @@ export function PersonalizationFields({
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="flex flex-col gap-3">
         <label className="text-sm font-medium">
           {t('onboarding.coldSensitivity')}
         </label>
         <div className="flex flex-col gap-2">
           {COLD_SENSITIVITIES.map((value) => (
-            <button
-              key={value}
-              type="button"
-              onClick={() =>
-                onColdSensitivityChange(coldSensitivity === value ? '' : value)
-              }
-              className={`${pillBase} ${
-                coldSensitivity === value ? pillSelected : pillUnselected
-              }`}
-            >
-              {t(`onboarding.coldSensitivities.${value}`)}
-            </button>
+            <div key={value} className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() =>
+                  onColdSensitivityChange(
+                    coldSensitivity === value ? '' : value,
+                  )
+                }
+                className={`flex-1 ${pillBase} ${
+                  coldSensitivity === value ? pillSelected : pillUnselected
+                }`}
+              >
+                {t(`onboarding.coldSensitivities.${value}`)}
+              </button>
+              <InfoTooltip
+                content={t(`onboarding.coldSensitivityDescriptions.${value}`)}
+                side="right"
+              />
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="space-y-1">
+      <div className="flex flex-col gap-3">
         <label className="text-sm font-medium">{t('onboarding.bio')}</label>
         <TextareaAutosize
           value={bio}

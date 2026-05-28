@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/shared/components/ui/dialog'
+import { InfoTooltip } from '@/shared/components/ui/tooltip'
 import {
   Tabs,
   TabsList,
@@ -152,7 +153,7 @@ export function ProfileDialog({ open, onClose }: ProfileDialogProps) {
 
             {/* Tab 1 — required fields */}
             <TabsContent value="profile" className="space-y-4 mt-4">
-              <div className="space-y-2">
+              <div className="flex flex-col gap-3">
                 <label className="text-sm font-medium">
                   {t('onboarding.firstName')}
                 </label>
@@ -164,7 +165,7 @@ export function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="flex flex-col gap-3">
                 <label className="text-sm font-medium">
                   {t('onboarding.age')}
                 </label>
@@ -178,25 +179,31 @@ export function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="flex flex-col gap-3">
                 <label className="text-sm font-medium">
                   {t('onboarding.activity')}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {ACTIVITIES.map(({ value, emoji, key }) => (
-                    <button
-                      key={value}
-                      type="button"
-                      onClick={() => setActivityType(value)}
-                      className={`flex items-center gap-2 rounded-lg border p-2.5 text-sm transition-colors text-left ${
-                        activityType === value
-                          ? 'border-brand bg-brand/10 text-brand font-medium'
-                          : 'border-border hover:border-brand/50 hover:bg-muted'
-                      }`}
-                    >
-                      <span className="text-lg">{emoji}</span>
-                      <span>{t(`onboarding.activities.${key}`)}</span>
-                    </button>
+                    <div key={value} className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setActivityType(value)}
+                        className={`w-full flex items-center gap-2 rounded-lg border p-2.5 pr-8 text-sm transition-colors text-left ${
+                          activityType === value
+                            ? 'border-brand bg-brand/10 text-brand font-medium'
+                            : 'border-border hover:border-brand/50 hover:bg-muted'
+                        }`}
+                      >
+                        <span className="text-lg">{emoji}</span>
+                        <span>{t(`onboarding.activities.${key}`)}</span>
+                      </button>
+                      <InfoTooltip
+                        content={t(`onboarding.activityDescriptions.${key}`)}
+                        side="bottom"
+                        iconClassName="absolute right-2.5 top-1/2 -translate-y-1/2"
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
@@ -219,7 +226,7 @@ export function ProfileDialog({ open, onClose }: ProfileDialogProps) {
 
             {/* Tab 3 — app preferences */}
             <TabsContent value="preferences" className="space-y-4 mt-4">
-              <div className="space-y-1">
+              <div className="flex flex-col gap-3">
                 <label className="text-sm font-medium">
                   {t('profile.language')}
                 </label>
@@ -241,7 +248,7 @@ export function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 </div>
               </div>
 
-              <div className="space-y-1">
+              <div className="flex flex-col gap-3">
                 <label className="text-sm font-medium">
                   {t('profile.temperatureUnit')}
                 </label>
@@ -263,7 +270,7 @@ export function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 </div>
               </div>
 
-              <div className="space-y-1">
+              <div className="flex flex-col gap-3">
                 <label className="text-sm font-medium">
                   {t('profile.theme')}
                 </label>

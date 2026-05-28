@@ -163,6 +163,12 @@ export const en = {
       active: 'Moderate',
       athletic: 'High',
     },
+    activityDescriptions: {
+      sedentary: 'Little or no exercise, mostly sitting',
+      light: 'Light walks or exercise 1–3 days a week',
+      active: 'Moderate workouts 3–5 days a week',
+      athletic: 'Intense training 6–7 days a week',
+    },
     optionalSection: 'Optional — helps personalize recommendations',
     gender: 'Gender',
     genders: {
@@ -176,6 +182,11 @@ export const en = {
       cold_sensitive: '❄️ Sensitive to cold',
       neutral: '🙂 Neutral',
       warm_tolerant: '🔥 Tolerates cold',
+    },
+    coldSensitivityDescriptions: {
+      cold_sensitive: 'You feel cold easily, even in mild weather',
+      neutral: 'You handle most temperatures comfortably',
+      warm_tolerant: 'You rarely feel cold, even in low temperatures',
     },
     bio: 'About you',
     bioPlaceholder: 'I bike to work, hate the cold, allergic to pollen…',
